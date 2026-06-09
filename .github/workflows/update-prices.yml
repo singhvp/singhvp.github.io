@@ -2,9 +2,8 @@ name: Update Stock Prices
 
 on:
   schedule:
-    # 4:00 PM IST = 10:30 AM UTC, weekdays only (after NSE market close)
     - cron: '30 10 * * 1-5'
-  workflow_dispatch:  # allows manual trigger from GitHub Actions tab
+  workflow_dispatch:
 
 jobs:
   update-prices:
@@ -23,6 +22,10 @@ jobs:
 
       - name: Install dependencies
         run: pip install yfinance requests
+
+      - name: Ensure data files exist
+        run: |
+          [ -f ipo_tracker_data.json ] || echo '{"listed":[],"upcoming":[]}' > ipo_tracker_data.json
 
       - name: Fetch prices and update data.js
         run: python3 update_prices.py

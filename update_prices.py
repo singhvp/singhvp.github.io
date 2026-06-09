@@ -53,6 +53,8 @@ WATCHLIST = [
 
 def batch_prices(tickers, label):
     """yfinance batch download. Returns dict ticker → {cmp, high52, low52}."""
+    if not tickers:
+        return {}
     print(f"\n📥 Batch-fetching {len(tickers)} {label} tickers via yfinance...")
     raw = yf.download(
         tickers=tickers,

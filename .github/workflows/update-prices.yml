@@ -1,0 +1,36 @@
+name: Update Stock Prices
+
+on:
+  schedule:
+    # 4:00 PM IST = 10:30 AM UTC, weekdays only (after NSE market close)
+    - cron: '30 10 * * 1-5'
+  workflow_dispatch:  # allows manual trigger from GitHub Actions tab
+
+jobs:
+  update-prices:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Fetch prices and update data.js
+        run: python3 update_prices.py
+
+      - name: Commit and push if data changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data.js
+          git diff --staged --quiet || git commit -m "prices: auto-update $(date -u +'%d %b %Y %H:%M UTC')"
+          git push

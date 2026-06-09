@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vinay Singh — Industrial Engineer & Data Scientist</title>
+  <style>
+    :root {
+      --bg: #0f0f0f;
+      --surface: #1a1a1a;
+      --border: #2a2a2a;
+      --accent: #e85d26;
+      --accent2: #f59e0b;
+      --text: #f0f0f0;
+      --muted: #888;
+      --font: 'Inter', 'Segoe UI', system-ui, sans-serif;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      line-height: 1.6;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 2.5rem;
+      background: rgba(15,15,15,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    /* SECTIONS */
+    section { padding: 6rem 2.5rem; max-width: 900px; margin: 0 auto; }
+
+    /* HERO */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-top: 8rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .hero-tag {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+    }
+    h1 {
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      margin-bottom: 1.5rem;
+    }
+    h1 em {
+      font-style: normal;
+      color: var(--accent);
+    }
+    .hero-sub {
+      font-size: 1.15rem;
+      color: var(--muted);
+      max-width: 540px;
+      margin-bottom: 2.5rem;
+      line-height: 1.7;
+    }
+    .hero-links {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+    }
+    .btn-primary:hover { background: #cf4e1c; }
+    .btn-ghost {
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+    .btn-ghost:hover { border-color: var(--muted); background: var(--surface); }
+    .hero-meta {
+      margin-top: 4rem;
+      display: flex;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+    }
+    .hero-stat { }
+    .hero-stat .num {
+      font-size: 1.8rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--text);
+    }
+    .hero-stat .label {
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    /* SECTION HEADERS */
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+    h2 {
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.5rem;
+    }
+    .divider {
+      width: 40px;
+      height: 3px;
+      background: var(--accent);
+      margin-bottom: 2.5rem;
+      border-radius: 2px;
+    }
+
+    /* ABOUT */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+    .about-text p {
+      color: var(--muted);
+      margin-bottom: 1rem;
+      font-size: 1rem;
+      line-height: 1.8;
+    }
+    .about-text p strong { color: var(--text); }
+    .about-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+    }
+    .tag {
+      padding: 0.35rem 0.8rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+    .about-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+    }
+    .about-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 1.25rem;
+      color: var(--text);
+    }
+    .about-card ul { list-style: none; }
+    .about-card ul li {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+    .about-card ul li:last-child { border-bottom: none; }
+    .about-card ul li span.dot {
+      width: 6px; height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* EXPERIENCE */
+    .exp-list { display: flex; flex-direction: column; gap: 1.5rem; }
+    .exp-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.75rem 2rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 0.5rem 2rem;
+      align-items: start;
+    }
+    .exp-item:hover { border-color: var(--accent); transition: border-color 0.2s; }
+    .exp-role {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .exp-company {
+      font-size: 0.9rem;
+      color: var(--accent);
+      font-weight: 600;
+      margin-top: 0.2rem;
+    }
+    .exp-period {
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-align: right;
+      white-space: nowrap;
+    }
+    .exp-desc {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.7;
+      grid-column: 1 / -1;
+      margin-top: 0.5rem;
+    }
+    .exp-skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      grid-column: 1 / -1;
+      margin-top: 0.75rem;
+    }
+
+    /* PROJECTS */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+      gap: 1.5rem;
+    }
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .project-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+    .project-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    .project-icon {
+      font-size: 1.5rem;
+    }
+    .project-links { display: flex; gap: 0.5rem; }
+    .project-link {
+      width: 32px; height: 32px;
+      display: flex; align-items: center; justify-content: center;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.8rem;
+      transition: all 0.2s;
+    }
+    .project-link:hover { border-color: var(--accent); color: var(--accent); }
+    .project-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .project-desc {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.7;
+      flex: 1;
+    }
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+    .project-tag {
+      padding: 0.25rem 0.6rem;
+      background: rgba(232, 93, 38, 0.1);
+      border: 1px solid rgba(232, 93, 38, 0.2);
+      border-radius: 4px;
+      font-size: 0.75rem;
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    /* INTERESTS */
+    .interests-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.25rem;
+    }
+    .interest-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+    .interest-card:hover { border-color: var(--accent); transition: border-color 0.2s; }
+    .interest-icon { font-size: 1.75rem; margin-bottom: 0.75rem; }
+    .interest-title {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .interest-desc { font-size: 0.875rem; color: var(--muted); line-height: 1.6; }
+
+    /* CONTACT */
+    #contact {
+      text-align: center;
+      padding: 6rem 2.5rem;
+    }
+    #contact h2 { margin-bottom: 1rem; }
+    #contact p { color: var(--muted); margin-bottom: 2rem; font-size: 1rem; }
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 2.5rem;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 640px) {
+      nav { padding: 1rem 1.25rem; }
+      .nav-links { gap: 1.25rem; }
+      section { padding: 4rem 1.25rem; }
+      #hero { padding: 7rem 1.25rem 3rem; }
+      .about-grid { grid-template-columns: 1fr; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .exp-item { grid-template-columns: 1fr; }
+      .exp-period { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#hero" class="nav-logo">VS<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#interests">Interests</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero" style="padding-left:2.5rem;padding-right:2.5rem;">
+    <span class="hero-tag">📍 Pittsburgh, PA</span>
+    <h1>Vinay<br><em>Singh</em></h1>
+    <p class="hero-sub">
+      Industrial Engineer at Kennametal working on IoT in metal cutting.
+      Building data science tools, investment dashboards, and defense sector research on the side.
+    </p>
+    <div class="hero-links">
+      <a href="#projects" class="btn btn-primary">View Projects</a>
+      <a href="https://github.com/singhvp" target="_blank" class="btn btn-ghost">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        GitHub
+      </a>
+      <a href="https://www.linkedin.com/in/vinaypratapsingh/" target="_blank" class="btn btn-ghost">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        LinkedIn
+      </a>
+    </div>
+    <div class="hero-meta">
+      <div class="hero-stat">
+        <div class="num">10+</div>
+        <div class="label">Years in Industry</div>
+      </div>
+      <div class="hero-stat">
+        <div class="num">IoT</div>
+        <div class="label">Focus at Kennametal</div>
+      </div>
+      <div class="hero-stat">
+        <div class="num">R → Py</div>
+        <div class="label">Data Science Stack</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-label">About</div>
+    <h2>Engineer by trade,<br>data scientist by curiosity.</h2>
+    <div class="divider"></div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>
+          I'm an <strong>Industrial Engineer</strong> at Kennametal in Pittsburgh, PA, where I work on IoT applications in metal cutting and manufacturing. My work sits at the intersection of physical systems and data.
+        </p>
+        <p>
+          Outside of work I build <strong>investment analysis tools</strong>, track portfolio performance across multiple accounts, and research Indian defense & aerospace companies as an investment theme.
+        </p>
+        <p>
+          I started with R (and still love it), but I'm transitioning my team to <strong>Python and AI-assisted workflows</strong> — building agents and data science pipelines that actually get used.
+        </p>
+        <div class="about-tags">
+          <span class="tag">Python</span>
+          <span class="tag">R</span>
+          <span class="tag">Pandas</span>
+          <span class="tag">IoT</span>
+          <span class="tag">Data Viz</span>
+          <span class="tag">Finance Analysis</span>
+          <span class="tag">Claude / LLM APIs</span>
+          <span class="tag">GitHub</span>
+        </div>
+      </div>
+      <div class="about-card">
+        <h3>Quick Facts</h3>
+        <ul>
+          <li><span class="dot"></span>📍 Pittsburgh, PA</li>
+          <li><span class="dot"></span>🏭 Kennametal — IoT in metal cutting</li>
+          <li><span class="dot"></span>📊 Built family investment dashboards</li>
+          <li><span class="dot"></span>🛡️ Tracks Indian defense sector</li>
+          <li><span class="dot"></span>🤖 Building with AI agents (Claude)</li>
+          <li><span class="dot"></span>📧 vinaytweets@gmail.com</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="section-label">Experience</div>
+    <h2>Where I've worked<br>and what I've built.</h2>
+    <div class="divider"></div>
+    <div class="exp-list">
+
+      <div class="exp-item">
+        <div>
+          <div class="exp-role">Industrial Engineer — IoT</div>
+          <div class="exp-company">Kennametal</div>
+        </div>
+        <div class="exp-period">Current</div>
+        <div class="exp-desc">
+          Working on IoT applications in the metal working / metal cutting industry. Connecting machine data, sensors, and software to improve manufacturing outcomes. Leading a shift from R to Python for data science workflows.
+        </div>
+        <div class="exp-skills">
+          <span class="tag">IoT</span>
+          <span class="tag">Python</span>
+          <span class="tag">R</span>
+          <span class="tag">Manufacturing Analytics</span>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div>
+          <div class="exp-role">Data Analysis & Visualization</div>
+          <div class="exp-company">Personal Projects</div>
+        </div>
+        <div class="exp-period">2017 – Present</div>
+        <div class="exp-desc">
+          Built investment dashboards tracking 4 Zerodha accounts across multiple fiscal years. Developed behavioral analysis tools, FIFO P&amp;L matching, and benchmark comparison against Nifty 50/500. Created interactive HTML dashboards and Word/PDF reports in Hindi and English.
+        </div>
+        <div class="exp-skills">
+          <span class="tag">Python</span>
+          <span class="tag">Pandas</span>
+          <span class="tag">Chart.js</span>
+          <span class="tag">Excel</span>
+          <span class="tag">Finance</span>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div>
+          <div class="exp-role">R & Tidyverse Projects</div>
+          <div class="exp-company">Open Source / TidyTuesday</div>
+        </div>
+        <div class="exp-period">2017 – 2020</div>
+        <div class="exp-desc">
+          Participated in TidyTuesday weekly data challenges. Built data visualizations and analysis projects including streetlights data analysis, Outlook metadata analysis, and production data exploration using the tidyverse.
+        </div>
+        <div class="exp-skills">
+          <span class="tag">R</span>
+          <span class="tag">ggplot2</span>
+          <span class="tag">tidyverse</span>
+          <span class="tag">Data Viz</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="section-label">Projects</div>
+    <h2>Things I've built.</h2>
+    <div class="divider"></div>
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <div class="project-header">
+          <div class="project-icon">📊</div>
+          <div class="project-links">
+            <a href="https://github.com/singhvp" class="project-link" title="GitHub">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="project-title">Investment Analytics Dashboard</div>
+        <div class="project-desc">
+          Full analysis of 4 Zerodha trading accounts (FY20–27). FIFO P&amp;L matching, behavioral metrics, win rate tracking, and benchmark comparison against Nifty 50/500. Interactive HTML dashboard + Hindi/English Word reports.
+        </div>
+        <div class="project-tags">
+          <span class="project-tag">Python</span>
+          <span class="project-tag">Pandas</span>
+          <span class="project-tag">Chart.js</span>
+          <span class="project-tag">Finance</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-header">
+          <div class="project-icon">🛡️</div>
+          <div class="project-links">
+            <a href="https://github.com/singhvp" class="project-link" title="GitHub">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="project-title">India Defense Sector Research</div>
+        <div class="project-desc">
+          6-layer value chain decomposition of Indian defense sub-systems. Tracks 20+ listed and private companies across electronics, drones, precision components, and MRO. Weekly watchlist monitoring thesis stress-tests.
+        </div>
+        <div class="project-tags">
+          <span class="project-tag">Research</span>
+          <span class="project-tag">Value Chain</span>
+          <span class="project-tag">Claude AI</span>
+          <span class="project-tag">Finance</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-header">
+          <div class="project-icon">🏭</div>
+          <div class="project-links"></div>
+        </div>
+        <div class="project-title">IoT in Metal Cutting — Kennametal</div>
+        <div class="project-desc">
+          Industrial IoT applications connecting CNC machine data, sensors, and analytics in the metal working industry. Focus on process optimization and predictive insights from manufacturing data streams.
+        </div>
+        <div class="project-tags">
+          <span class="project-tag">IoT</span>
+          <span class="project-tag">Python</span>
+          <span class="project-tag">Manufacturing</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-header">
+          <div class="project-icon">📈</div>
+          <div class="project-links">
+            <a href="https://github.com/singhvp/orwell_basics" target="_blank" class="project-link" title="GitHub">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="project-title">TidyTuesday & R Data Viz</div>
+        <div class="project-desc">
+          Weekly data visualization challenges using R and tidyverse. Projects include production data analysis, streetlights dataset from European Data Portal, and Outlook metadata exploration.
+        </div>
+        <div class="project-tags">
+          <span class="project-tag">R</span>
+          <span class="project-tag">ggplot2</span>
+          <span class="project-tag">tidyverse</span>
+          <span class="project-tag">Open Data</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- INTERESTS -->
+  <section id="interests">
+    <div class="section-label">Interests</div>
+    <h2>What I'm thinking about.</h2>
+    <div class="divider"></div>
+    <div class="interests-grid">
+      <div class="interest-card">
+        <div class="interest-icon">🤖</div>
+        <div class="interest-title">AI & Agents</div>
+        <div class="interest-desc">Building with LLMs and autonomous agents — Claude, MCP tooling, AI-assisted data science pipelines.</div>
+      </div>
+      <div class="interest-card">
+        <div class="interest-icon">🛡️</div>
+        <div class="interest-title">Defense Sector Investing</div>
+        <div class="interest-desc">Tracking Indian defense sub-system companies — electronics, drones, precision components — as a long-term investment theme.</div>
+      </div>
+      <div class="interest-card">
+        <div class="interest-icon">📊</div>
+        <div class="interest-title">Quantitative Finance</div>
+        <div class="interest-desc">Building tools for portfolio analysis, behavioral trading metrics, and benchmark comparison. P&amp;L attribution and pattern recognition in trading data.</div>
+      </div>
+      <div class="interest-card">
+        <div class="interest-icon">🏭</div>
+        <div class="interest-title">Industrial IoT</div>
+        <div class="interest-desc">Connecting physical manufacturing systems to data — sensors, CNC machines, and predictive analytics in metal working.</div>
+      </div>
+      <div class="interest-card">
+        <div class="interest-icon">🐍</div>
+        <div class="interest-title">Python for Data Science</div>
+        <div class="interest-desc">Transitioning teams from R to Python — building reproducible pipelines, dashboards, and analysis workflows that non-data people can actually use.</div>
+      </div>
+      <div class="interest-card">
+        <div class="interest-icon">📚</div>
+        <div class="interest-title">Research & Writing</div>
+        <div class="interest-desc">Long-form sector research, investment theses, and communicating complex analysis clearly — in English and Hindi.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-label">Contact</div>
+    <h2>Let's connect.</h2>
+    <p>Open to conversations about IoT, data science, investing, or building with AI.</p>
+    <div class="contact-links">
+      <a href="mailto:vinaytweets@gmail.com" class="btn btn-primary">✉️ Email Me</a>
+      <a href="https://www.linkedin.com/in/vinaypratapsingh/" target="_blank" class="btn btn-ghost">LinkedIn</a>
+      <a href="https://github.com/singhvp" target="_blank" class="btn btn-ghost">GitHub</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>Built by Vinay Singh · <a href="https://github.com/singhvp/singhvp.github.io" style="color:var(--muted);text-decoration:none;">singhvp.github.io</a></p>
+  </footer>
+
+</body>
+</html>

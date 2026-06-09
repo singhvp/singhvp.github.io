@@ -372,6 +372,94 @@
       flex-wrap: wrap;
     }
 
+    /* WATCHLIST */
+    .watchlist-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 0.75rem;
+    }
+    .stock-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      transition: border-color 0.2s;
+    }
+    .stock-card:hover { border-color: var(--accent); }
+    .stock-ticker {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+    }
+    .stock-name {
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.3;
+    }
+    .stock-cmp {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 0.25rem;
+    }
+    .watchlist-meta {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+    }
+
+    /* SECTORS */
+    .sectors-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 1.25rem;
+    }
+    .sector-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: border-color 0.2s;
+    }
+    .sector-card:hover { border-color: var(--accent); }
+    .sector-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+    .sector-icon { font-size: 1.4rem; }
+    .sector-name {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .sector-summary {
+      font-size: 0.875rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 0.75rem;
+    }
+    .sector-signals { display: flex; flex-direction: column; gap: 0.4rem; }
+    .sector-signal {
+      font-size: 0.8rem;
+      color: var(--muted);
+      padding: 0.4rem 0.6rem;
+      background: rgba(255,255,255,0.03);
+      border-radius: 4px;
+      border-left: 2px solid var(--accent);
+      line-height: 1.4;
+    }
+    .sectors-meta {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+    }
+
     /* FOOTER */
     footer {
       border-top: 1px solid var(--border);
@@ -404,6 +492,8 @@
       <li><a href="#experience">Experience</a></li>
       <li><a href="#projects">Projects</a></li>
       <li><a href="#interests">Interests</a></li>
+      <li><a href="#watchlist">Watchlist</a></li>
+      <li><a href="#sectors">Sectors</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
   </nav>
@@ -674,6 +764,28 @@
     </div>
   </section>
 
+  <!-- WATCHLIST -->
+  <section id="watchlist">
+    <div class="section-label">Watchlist</div>
+    <h2>Stocks I'm tracking.</h2>
+    <div class="divider"></div>
+    <p class="watchlist-meta" id="watchlist-updated">Last updated: —</p>
+    <div class="watchlist-grid" id="watchlist-grid">
+      <!-- populated by data.js -->
+    </div>
+  </section>
+
+  <!-- SECTORS -->
+  <section id="sectors">
+    <div class="section-label">Sectors in Review</div>
+    <h2>Themes I'm researching.</h2>
+    <div class="divider"></div>
+    <p class="sectors-meta" id="sectors-updated">Last updated: —</p>
+    <div class="sectors-grid" id="sectors-grid">
+      <!-- populated by data.js -->
+    </div>
+  </section>
+
   <!-- CONTACT -->
   <section id="contact">
     <div class="section-label">Contact</div>
@@ -690,6 +802,54 @@
   <footer>
     <p>Built by Vinay Singh · <a href="https://github.com/singhvp/singhvp.github.io" style="color:var(--muted);text-decoration:none;">singhvp.github.io</a></p>
   </footer>
+
+  <script src="data.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof window.PORTFOLIO_DATA === 'undefined') return;
+      const data = window.PORTFOLIO_DATA;
+
+      // --- WATCHLIST ---
+      const wGrid = document.getElementById('watchlist-grid');
+      const wMeta = document.getElementById('watchlist-updated');
+      if (data.watchlist) {
+        wMeta.textContent = 'Last updated: ' + data.watchlist.updated;
+        data.watchlist.stocks.forEach(s => {
+          const card = document.createElement('div');
+          card.className = 'stock-card';
+          card.innerHTML = `
+            <div class="stock-ticker">${s.ticker}</div>
+            <div class="stock-name">${s.name}</div>
+            <div class="stock-cmp">${s.cmp !== null ? '₹' + s.cmp.toLocaleString('en-IN') : '—'}</div>
+          `;
+          wGrid.appendChild(card);
+        });
+      }
+
+      // --- SECTORS ---
+      const sGrid = document.getElementById('sectors-grid');
+      const sMeta = document.getElementById('sectors-updated');
+      if (data.sectors) {
+        sMeta.textContent = 'Last updated: ' + data.sectors.updated;
+        data.sectors.themes.forEach(t => {
+          const signalsHtml = t.signals.length
+            ? t.signals.map(sig => `<div class="sector-signal">${sig}</div>`).join('')
+            : '';
+          const card = document.createElement('div');
+          card.className = 'sector-card';
+          card.innerHTML = `
+            <div class="sector-header">
+              <span class="sector-icon">${t.icon}</span>
+              <span class="sector-name">${t.name}</span>
+            </div>
+            <div class="sector-summary">${t.summary}</div>
+            ${signalsHtml ? `<div class="sector-signals">${signalsHtml}</div>` : ''}
+          `;
+          sGrid.appendChild(card);
+        });
+      }
+    });
+  </script>
 
 </body>
 </html>

@@ -26,7 +26,7 @@ os.makedirs(_cache, exist_ok=True)
 yf.set_tz_cache_location(_cache)
 
 BASE      = Path(__file__).parent
-IPO_JSON  = BASE.parent / "ipo_tracker_data.json"
+IPO_JSON  = BASE / "ipo_tracker_data.json"
 
 # ── Watchlist ─────────────────────────────────────────────────────────────────
 WATCHLIST = [

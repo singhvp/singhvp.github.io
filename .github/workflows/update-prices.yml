@@ -21,14 +21,11 @@ jobs:
           python-version: '3.12'
 
       - name: Install dependencies
-        run: pip install yfinance requests
-
+        run: pip install yfinance requests pandas
+        
       - name: Ensure data files exist
         run: |
-          [ -f ipo_tracker_data.json ] || echo '{"listed":[],"upcoming":[]}' > ipo_tracker_data.json
-
-      - name: Debug IPO_JSON path
-        run: grep -n "IPO_JSON" update_prices.py
+          [ -f ipo_tracker_data.json ] || echo '[]' > ipo_tracker_data.json
 
       - name: Fetch prices and update data.js
         run: python3 update_prices.py

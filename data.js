@@ -4,25 +4,25 @@
 window.PORTFOLIO_DATA = {
 
   watchlist: {
-    updated: "9 Jun 2026, 12:02 PM",
+    updated: "9 Jun 2026, 06:35 AM",
     stocks: [
-      { ticker: "ADANIPORTS", name: "Adani Ports", cmp: 1800.0 },
-      { ticker: "ASTRAMICRO", name: "Astra Microwave", cmp: 1451.8 },
-      { ticker: "GPIL", name: "Godawari Power & Ispat", cmp: 277.05 },
-      { ticker: "PAYTM", name: "Paytm", cmp: 1057.4 },
-      { ticker: "HBLENGINE", name: "HBL Engineering", cmp: 774.0 },
-      { ticker: "KRISHNADEF", name: "Krishna Defence", cmp: 1232.6 },
-      { ticker: "ZENTEC", name: "Zen Technologies", cmp: 1801.2 },
-      { ticker: "MEDIASSIST", name: "Medi Assist", cmp: 352.0 },
-      { ticker: "UNIMECH", name: "Unimech Aerospace", cmp: 1126.05 },
-      { ticker: "GOLDCASE", name: "Goldcase", cmp: 23.92 },
-      { ticker: "FEDFINA", name: "Federal Bank Fin. Services", cmp: 156.41 },
+      { ticker: "ADANIPORTS", name: "Adani Ports", cmp: null },
+      { ticker: "ASTRAMICRO", name: "Astra Microwave", cmp: null },
+      { ticker: "GPIL", name: "Godawari Power & Ispat", cmp: null },
+      { ticker: "PAYTM", name: "Paytm", cmp: null },
+      { ticker: "HBLENGINE", name: "HBL Engineering", cmp: null },
+      { ticker: "KRISHNADEF", name: "Krishna Defence", cmp: null },
+      { ticker: "ZENTEC", name: "Zen Technologies", cmp: null },
+      { ticker: "MEDIASSIST", name: "Medi Assist", cmp: null },
+      { ticker: "UNIMECH", name: "Unimech Aerospace", cmp: null },
+      { ticker: "GOLDCASE", name: "Goldcase", cmp: null },
+      { ticker: "FEDFINA", name: "Federal Bank Fin. Services", cmp: null },
       { ticker: "EMMFORCE", name: "Emmforce Autotech", cmp: null },
-      { ticker: "INTELLECT", name: "Intellect Design Arena", cmp: 735.4 },
-      { ticker: "RATEGAIN", name: "RateGain Travel Tech", cmp: 752.2 },
+      { ticker: "INTELLECT", name: "Intellect Design Arena", cmp: null },
+      { ticker: "RATEGAIN", name: "RateGain Travel Tech", cmp: null },
       { ticker: "NSDL", name: "NSDL", cmp: null },
-      { ticker: "NH", name: "Narayana Hrudayalaya", cmp: 1950.4 },
-      { ticker: "BDL", name: "Bharat Dynamics", cmp: 1196.9 }
+      { ticker: "NH", name: "Narayana Hrudayalaya", cmp: null },
+      { ticker: "BDL", name: "Bharat Dynamics", cmp: null }
     ]
   },
 

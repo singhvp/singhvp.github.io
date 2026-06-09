@@ -460,6 +460,97 @@
       margin-bottom: 1.5rem;
     }
 
+    /* IPO SECTION */
+    .ipo-meta { font-size: 0.75rem; color: var(--muted); margin-bottom: 1.5rem; }
+    .ipo-upcoming-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 3rem;
+    }
+    .ipo-upcoming-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent2);
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: border-color 0.2s;
+    }
+    .ipo-upcoming-card:hover { border-color: var(--accent2); }
+    .ipo-uc-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem; }
+    .ipo-uc-name { font-size: 0.95rem; font-weight: 700; color: var(--text); flex: 1; }
+    .ipo-uc-badge {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--accent2);
+      background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.25);
+      border-radius: 4px; padding: 0.2rem 0.5rem; white-space: nowrap; margin-left: 0.75rem;
+    }
+    .ipo-uc-meta { display: flex; gap: 1.5rem; margin-bottom: 0.75rem; }
+    .ipo-uc-field label { font-size: 0.68rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; display: block; }
+    .ipo-uc-field span { font-size: 0.9rem; font-weight: 600; color: var(--text); }
+    .ipo-uc-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
+
+    /* Listed IPO table */
+    .ipo-controls {
+      display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 1.25rem; align-items: center;
+    }
+    .ipo-search {
+      flex: 1; min-width: 180px; max-width: 280px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 6px; padding: 0.55rem 0.9rem;
+      color: var(--text); font-size: 0.85rem; outline: none;
+    }
+    .ipo-search:focus { border-color: var(--accent); }
+    .ipo-filter-btns { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .ipo-filter-btn {
+      padding: 0.45rem 0.85rem; border-radius: 5px; font-size: 0.78rem; font-weight: 600;
+      border: 1px solid var(--border); background: var(--surface); color: var(--muted);
+      cursor: pointer; transition: all 0.15s;
+    }
+    .ipo-filter-btn.active, .ipo-filter-btn:hover { border-color: var(--accent); color: var(--accent); background: rgba(232,93,38,0.08); }
+    .ipo-sort {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 6px;
+      padding: 0.5rem 0.75rem; color: var(--muted); font-size: 0.82rem; outline: none;
+    }
+    .ipo-stats {
+      display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 1.5rem;
+      padding: 1rem 1.25rem; background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+    }
+    .ipo-stat label { font-size: 0.68rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; display: block; }
+    .ipo-stat span { font-size: 1rem; font-weight: 700; color: var(--text); }
+    .ipo-table-wrap { overflow-x: auto; }
+    table.ipo-tbl { width: 100%; border-collapse: collapse; font-size: 0.82rem; min-width: 700px; }
+    .ipo-tbl th {
+      background: var(--surface); padding: 0.65rem 0.75rem; text-align: left;
+      border-bottom: 2px solid var(--border); font-size: 0.72rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.07em; color: var(--muted);
+      cursor: pointer; white-space: nowrap; user-select: none;
+    }
+    .ipo-tbl th:hover { color: var(--text); }
+    .ipo-tbl th.sorted { color: var(--accent); }
+    .ipo-tbl td { padding: 0.65rem 0.75rem; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--muted); }
+    .ipo-tbl tr:hover td { background: rgba(255,255,255,0.02); cursor: pointer; }
+    .ipo-tbl tr.ipo-expanded td { background: rgba(232,93,38,0.04); }
+    .ipo-tbl .ipo-name { font-weight: 600; color: var(--text); font-size: 0.85rem; }
+    .ipo-tbl .ipo-ticker { font-size: 0.72rem; color: var(--accent); font-weight: 700; }
+    .ipo-tbl .num { text-align: right; font-variant-numeric: tabular-nums; }
+    .ipo-tbl .pos { color: #4ade80; }
+    .ipo-tbl .neg { color: #f87171; }
+    .ipo-tbl .na { color: #555; }
+    .ipo-expand-row { display: none; }
+    .ipo-expand-row.open { display: table-row; }
+    .ipo-expand-row td {
+      background: rgba(255,255,255,0.015) !important;
+      padding: 0.85rem 1.25rem 1rem; border-bottom: 2px solid var(--border);
+    }
+    .ipo-expand-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem 2rem; }
+    .ipo-expand-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); margin-bottom: 0.2rem; }
+    .ipo-expand-text { font-size: 0.82rem; color: var(--muted); line-height: 1.55; }
+    @media (max-width: 640px) {
+      .ipo-expand-inner { grid-template-columns: 1fr; }
+      .ipo-upcoming-grid { grid-template-columns: 1fr; }
+    }
+
     /* FOOTER */
     footer {
       border-top: 1px solid var(--border);
@@ -494,6 +585,7 @@
       <li><a href="#interests">Interests</a></li>
       <li><a href="#watchlist">Watchlist</a></li>
       <li><a href="#sectors">Sectors</a></li>
+      <li><a href="#ipos">IPOs</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
   </nav>
@@ -786,6 +878,66 @@
     </div>
   </section>
 
+  <!-- IPOs -->
+  <section id="ipos">
+    <div class="section-label">IPO Tracker</div>
+    <h2>Indian IPOs<br>Jun 2025 – Jun 2026.</h2>
+    <div class="divider"></div>
+    <p class="ipo-meta" id="ipo-updated">Last updated: —</p>
+
+    <!-- Upcoming -->
+    <div id="ipo-upcoming-wrap" style="display:none">
+      <h3 style="font-size:1rem;font-weight:700;color:var(--accent2);margin-bottom:1rem;letter-spacing:0.05em;">🔔 LISTING SOON</h3>
+      <div class="ipo-upcoming-grid" id="ipo-upcoming-grid"></div>
+    </div>
+
+    <!-- Stats bar -->
+    <div class="ipo-stats" id="ipo-stats" style="display:none">
+      <div class="ipo-stat"><label>Total</label><span id="s-total">—</span></div>
+      <div class="ipo-stat"><label>With CMP</label><span id="s-priced">—</span></div>
+      <div class="ipo-stat"><label>Gainers</label><span id="s-gain" class="pos">—</span></div>
+      <div class="ipo-stat"><label>Losers</label><span id="s-loss" class="neg">—</span></div>
+      <div class="ipo-stat"><label>Avg vs IPO</label><span id="s-avg">—</span></div>
+    </div>
+
+    <!-- Controls -->
+    <div class="ipo-controls">
+      <input class="ipo-search" type="text" id="ipo-search" placeholder="Search company…">
+      <div class="ipo-filter-btns">
+        <button class="ipo-filter-btn active" data-filter="all">All</button>
+        <button class="ipo-filter-btn" data-filter="gainers">▲ Gainers</button>
+        <button class="ipo-filter-btn" data-filter="losers">▼ Losers</button>
+        <button class="ipo-filter-btn" data-filter="moat">✦ Has Moat</button>
+      </div>
+      <select class="ipo-sort" id="ipo-sort">
+        <option value="date-desc">Listed: Newest</option>
+        <option value="date-asc">Listed: Oldest</option>
+        <option value="vsipo-desc">Best Return</option>
+        <option value="vsipo-asc">Worst Return</option>
+        <option value="cmp-desc">CMP: High→Low</option>
+      </select>
+    </div>
+
+    <!-- Table -->
+    <div class="ipo-table-wrap">
+      <table class="ipo-tbl" id="ipo-table">
+        <thead>
+          <tr>
+            <th style="min-width:180px">#&nbsp;Company</th>
+            <th>Listed</th>
+            <th class="num">Offer ₹</th>
+            <th class="num">List Close</th>
+            <th class="num">CMP ₹</th>
+            <th class="num">vs IPO</th>
+            <th class="num">52W H</th>
+            <th class="num">52W L</th>
+          </tr>
+        </thead>
+        <tbody id="ipo-tbody"></tbody>
+      </table>
+    </div>
+  </section>
+
   <!-- CONTACT -->
   <section id="contact">
     <div class="section-label">Contact</div>
@@ -847,6 +999,149 @@
           `;
           sGrid.appendChild(card);
         });
+      }
+
+      // --- IPOs ---
+      if (data.ipos) {
+        document.getElementById('ipo-updated').textContent = 'Last updated: ' + data.ipos.updated;
+
+        // Upcoming cards
+        const upcoming = data.ipos.upcoming || [];
+        if (upcoming.length) {
+          document.getElementById('ipo-upcoming-wrap').style.display = '';
+          const ugrid = document.getElementById('ipo-upcoming-grid');
+          upcoming.forEach(ipo => {
+            const mid = ((ipo.offerLow||0) + (ipo.offerHigh||0)) / 2;
+            const offerStr = ipo.offerLow === ipo.offerHigh
+              ? '₹' + ipo.offerLow
+              : '₹' + ipo.offerLow + '–' + ipo.offerHigh;
+            ugrid.innerHTML += `
+              <div class="ipo-upcoming-card">
+                <div class="ipo-uc-header">
+                  <div class="ipo-uc-name">${ipo.name}</div>
+                  <div class="ipo-uc-badge">LISTING ${ipo.listingDate}</div>
+                </div>
+                <div class="ipo-uc-meta">
+                  <div class="ipo-uc-field"><label>Offer Price</label><span>${offerStr}</span></div>
+                  <div class="ipo-uc-field"><label>Ticker</label><span>${ipo.ticker || '—'}</span></div>
+                </div>
+                <div class="ipo-uc-desc">${ipo.business || ''}</div>
+              </div>`;
+          });
+        }
+
+        // Listed table
+        let ipoList = (data.ipos.listed || []).slice();
+        let activeFilter = 'all';
+        let activeSort = 'date-desc';
+
+        function hasMoat(ipo) {
+          return ipo.moat && !ipo.moat.toLowerCase().startsWith('none');
+        }
+        function fmt(v, prefix='₹', decimals=2) {
+          if (v == null) return '<span class="na">—</span>';
+          return prefix + Number(v).toLocaleString('en-IN', {minimumFractionDigits: decimals, maximumFractionDigits: decimals});
+        }
+        function fmtPct(v) {
+          if (v == null) return '<span class="na">—</span>';
+          const cls = v >= 0 ? 'pos' : 'neg';
+          const sign = v >= 0 ? '+' : '';
+          return `<span class="${cls}">${sign}${v.toFixed(1)}%</span>`;
+        }
+
+        function updateStats(rows) {
+          const priced = rows.filter(x => x.cmp != null);
+          const gainers = priced.filter(x => (x.vsIpo||0) >= 0);
+          const losers  = priced.filter(x => (x.vsIpo||0) < 0);
+          const avg = priced.length ? (priced.reduce((s,x)=>s+(x.vsIpo||0),0)/priced.length) : null;
+          document.getElementById('s-total').textContent = rows.length;
+          document.getElementById('s-priced').textContent = priced.length;
+          document.getElementById('s-gain').textContent = gainers.length;
+          document.getElementById('s-loss').textContent = losers.length;
+          document.getElementById('s-avg').textContent = avg != null ? (avg>=0?'+':'')+avg.toFixed(1)+'%' : '—';
+          document.getElementById('s-avg').className = avg == null ? '' : avg >= 0 ? 'pos' : 'neg';
+          document.getElementById('ipo-stats').style.display = '';
+        }
+
+        function renderTable() {
+          const q = document.getElementById('ipo-search').value.toLowerCase();
+          let rows = ipoList.filter(ipo => {
+            if (q && !ipo.name.toLowerCase().includes(q) && !(ipo.ticker||'').toLowerCase().includes(q)) return false;
+            if (activeFilter === 'gainers') return ipo.vsIpo != null && ipo.vsIpo >= 0;
+            if (activeFilter === 'losers')  return ipo.vsIpo != null && ipo.vsIpo < 0;
+            if (activeFilter === 'moat')    return hasMoat(ipo);
+            return true;
+          });
+
+          rows.sort((a, b) => {
+            if (activeSort === 'date-desc') return (b.listingDate||'').localeCompare(a.listingDate||'');
+            if (activeSort === 'date-asc')  return (a.listingDate||'').localeCompare(b.listingDate||'');
+            if (activeSort === 'vsipo-desc') return (b.vsIpo??-999) - (a.vsIpo??-999);
+            if (activeSort === 'vsipo-asc')  return (a.vsIpo??999) - (b.vsIpo??999);
+            if (activeSort === 'cmp-desc')   return (b.cmp??0) - (a.cmp??0);
+            return 0;
+          });
+
+          updateStats(rows);
+
+          const tbody = document.getElementById('ipo-tbody');
+          tbody.innerHTML = '';
+          rows.forEach((ipo, idx) => {
+            const offerStr = ipo.offerLow === ipo.offerHigh
+              ? '₹' + ipo.offerLow
+              : '₹' + (ipo.offerLow||'?') + '–' + (ipo.offerHigh||'?');
+            const moatIcon = hasMoat(ipo) ? '<span style="color:var(--accent2)">✦</span>' : '';
+            const rowId = 'ipo-exp-' + idx;
+
+            const tr = document.createElement('tr');
+            tr.className = 'ipo-data-row';
+            tr.dataset.idx = idx;
+            tr.innerHTML = `
+              <td><div class="ipo-name">${moatIcon} ${ipo.name}</div><div class="ipo-ticker">${ipo.ticker||''}</div></td>
+              <td>${ipo.listingDate||'—'}</td>
+              <td class="num">${offerStr}</td>
+              <td class="num">${ipo.listingClose ? '₹'+Number(ipo.listingClose).toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2}) : '<span class="na">—</span>'}</td>
+              <td class="num">${ipo.cmp ? '₹'+Number(ipo.cmp).toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2}) : '<span class="na">—</span>'}</td>
+              <td class="num">${fmtPct(ipo.vsIpo)}</td>
+              <td class="num">${ipo.high52 ? '₹'+Number(ipo.high52).toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2}) : '<span class="na">—</span>'}</td>
+              <td class="num">${ipo.low52  ? '₹'+Number(ipo.low52).toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2}) : '<span class="na">—</span>'}</td>`;
+            tbody.appendChild(tr);
+
+            const expandTr = document.createElement('tr');
+            expandTr.id = rowId;
+            expandTr.className = 'ipo-expand-row';
+            expandTr.innerHTML = `<td colspan="8">
+              <div class="ipo-expand-inner">
+                <div>
+                  <div class="ipo-expand-label">Business</div>
+                  <div class="ipo-expand-text">${ipo.business||'—'}</div>
+                </div>
+                <div>
+                  <div class="ipo-expand-label">Moat</div>
+                  <div class="ipo-expand-text">${ipo.moat||'—'}</div>
+                </div>
+              </div></td>`;
+            tbody.appendChild(expandTr);
+
+            tr.addEventListener('click', () => {
+              const open = expandTr.classList.toggle('open');
+              tr.classList.toggle('ipo-expanded', open);
+            });
+          });
+        }
+
+        document.getElementById('ipo-search').addEventListener('input', renderTable);
+        document.getElementById('ipo-sort').addEventListener('change', e => { activeSort = e.target.value; renderTable(); });
+        document.querySelectorAll('.ipo-filter-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            document.querySelectorAll('.ipo-filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            activeFilter = btn.dataset.filter;
+            renderTable();
+          });
+        });
+
+        renderTable();
       }
     });
   </script>

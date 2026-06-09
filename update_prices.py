@@ -4,28 +4,31 @@
 # dependencies = ["yfinance>=0.2.38", "pandas>=2.0"]
 # ///
 """
-update_prices.py — fetch live prices for watchlist + all IPO tickers, write to data.js
-Run from the singhvp.github.io folder:
+update_prices.py — fetch live prices for watchlist + IPO tickers, write to data.js
+Source of truth for IPOs: ../ipo_tracker_data.json
+
+Run from singhvp.github.io folder:
   uv run update_prices.py
-  uv run update_prices.py --deploy   # also pushes to GitHub via deploy.sh
+  uv run update_prices.py --deploy
 """
 
-import json, re, sys, subprocess, os, shutil, tempfile
-from datetime import datetime
+import csv, io, json, os, re, shutil, subprocess, sys, tempfile, urllib.request, zipfile
+from datetime import datetime, timedelta
 from pathlib import Path
 
 import yfinance as yf
 import pandas as pd
 
-# ── Wipe yfinance cache to avoid SQLite corruption ───────────────────────────
+# ── Wipe yfinance cache to avoid SQLite corruption ────────────────────────────
 _cache = os.path.join(tempfile.gettempdir(), "yf_portfolio_cache")
 shutil.rmtree(_cache, ignore_errors=True)
 os.makedirs(_cache, exist_ok=True)
 yf.set_tz_cache_location(_cache)
 
-BASE = Path(__file__).parent
+BASE      = Path(__file__).parent
+IPO_JSON  = BASE.parent / "ipo_tracker_data.json"
 
-# ── Watchlist tickers ─────────────────────────────────────────────────────────
+# ── Watchlist ─────────────────────────────────────────────────────────────────
 WATCHLIST = [
     {"ticker": "ADANIPORTS", "name": "Adani Ports",                "ns": "ADANIPORTS.NS"},
     {"ticker": "ASTRAMICRO", "name": "Astra Microwave",            "ns": "ASTRAMICRO.NS"},
@@ -46,30 +49,11 @@ WATCHLIST = [
     {"ticker": "BDL",        "name": "Bharat Dynamics",            "ns": "BDL.NS"},
 ]
 
-# ── IPO tickers ───────────────────────────────────────────────────────────────
-IPO_TICKERS = [
-    "AEGISVOPAK.NS","SCHLOSS.NS","PROSTARM.NS","SCODAT.NS","ARISINFRA.NS",
-    "KALPATARULD.NS","ELLENBARRIE.NS","GLOBECIVIL.NS","HDBFS.NS","SAMBHVSTEEL.NS",
-    "INDOGULF.NS","CRIZAC.NS","TRAVELFOOD.NS","SMARTWORKS.NS","ANTHEMBIOSCIENCES.NS",
-    "GNGELECTRONIC.NS","INDIQUBE.NS","BRIGADEHVL.NS","LAXMIIND.NS","ADITYAINFO.NS",
-    "MBENG.NS","NSDL.BO","SRILOTUS.NS","HIGHWAYINFRA.NS","JSWCEMENT.NS",
-    "ALLTIMEPLASTIC.NS","BLUESTONE.NS","KRT.NS","PACEDIGTECH.NS","GLOTTIS.NS",
-    "FABTECH.NS","OMFRIEGHT.NS","WEWORK.NS","ADVANCEAGRO.NS","TATACAP.NS",
-    "LGEINDIA.NS","CRAMC.NS","RUBICON.NS","ANANTAM.NS","CANHLIFE.NS",
-    "LENSKART.NS","GROWW.NS","PINELABS.NS","PWL.NS","EMMVEE.NS",
-    "TENNECO.NS","FUJIYAMA.NS","CAPILLARYTEC.NS","EXCELSOFT.NS","SUDEEPPHARMA.NS",
-    "MEESHO.NS","ICICIAMC.NS","BHARATCOAL.NS","AMAGI.NS","SHADOWFAX.NS",
-    "FRACTAL.NS","AYEF.NS","GAUDIUMIVF.NS","SRTL.NS","CLEANMAX.NS",
-    "PNGSREVA.NS","OMNITECH.NS","SEDEMAC.NS","RJPS.NS","INNOVISION.NS",
-    "RAAJMARG.NS","GSPCROPSC.NS","CMPDI.NS","AMIRCHAND.NS","POWERICA.NS",
-    "SAIPAREN.NS","OMPOWER.NS","CITIUSTRANS.NS","ONEMI.NS","BAGMANE.NS",
-    "CMRGREEN.NS","HEXANUT.NS",
-]
-
+# ── Helpers ───────────────────────────────────────────────────────────────────
 
 def batch_prices(tickers, label):
-    """Batch-download 1Y OHLC; return dict ticker → {cmp, high52, low52}."""
-    print(f"\n📥 Batch-downloading {len(tickers)} {label} tickers...")
+    """yfinance batch download. Returns dict ticker → {cmp, high52, low52}."""
+    print(f"\n📥 Batch-fetching {len(tickers)} {label} tickers via yfinance...")
     raw = yf.download(
         tickers=tickers,
         period="1y",
@@ -91,11 +75,207 @@ def batch_prices(tickers, label):
                 "high52": round(float(df["High"].max()), 2),
                 "low52":  round(float(df["Low"].min()), 2),
             }
-            print(f"  ✓  {ticker:<25} ₹{out[ticker]['cmp']:>9.2f}")
-        except Exception as e:
-            print(f"  ⚠  {ticker:<25} {str(e)[:50]}")
-    print(f"  → {len(out)}/{len(tickers)} fetched")
+        except Exception:
+            pass
+    hits = len(out)
+    print(f"  → {hits}/{len(tickers)} fetched")
+    for t, p in out.items():
+        print(f"    ✓  {t:<28} ₹{p['cmp']:>9.2f}")
     return out
+
+
+def nse_bhavcopy_prices(missing_symbols):
+    """
+    Fallback: fetch NSE daily bhavcopy for symbols yfinance missed.
+    Returns dict NSE_SYMBOL → close price (no 52W H/L).
+    Tries last 5 trading days, two URL formats.
+    """
+    if not missing_symbols:
+        return {}
+
+    headers = {
+        "User-Agent": (
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+        ),
+        "Accept": "*/*",
+        "Accept-Language": "en-US,en;q=0.9",
+        "Referer": "https://www.nseindia.com/",
+        "Connection": "keep-alive",
+    }
+
+    # Last 5 trading days
+    dates = []
+    d = datetime.today()
+    while len(dates) < 5:
+        if d.weekday() < 5:
+            dates.append(d)
+        d -= timedelta(days=1)
+
+    sym_map = {}   # NSE_SYMBOL → close price
+
+    for dt in dates:
+        dd   = dt.strftime("%d%m%Y")   # DDMMYYYY
+        ymd  = dt.strftime("%Y%m%d")   # YYYYMMDD
+
+        url_candidates = [
+            # New full bhavcopy CSV
+            f"https://nsearchives.nseindia.com/products/content/sec_bhavdata_full_{dd}.csv",
+            # New CM bhavcopy ZIP
+            f"https://nsearchives.nseindia.com/content/cm/BhavCopy_NSE_CM_0_0_0_{ymd}_F_0000.csv.zip",
+        ]
+
+        for url in url_candidates:
+            try:
+                req = urllib.request.Request(url, headers=headers)
+                with urllib.request.urlopen(req, timeout=20) as resp:
+                    raw = resp.read()
+
+                if url.endswith(".zip"):
+                    with zipfile.ZipFile(io.BytesIO(raw)) as z:
+                        fname = next(n for n in z.namelist() if n.endswith(".csv"))
+                        content = io.TextIOWrapper(z.open(fname), encoding="utf-8")
+                        reader = csv.DictReader(content)
+                        for row in reader:
+                            sym   = (row.get("SYMBOL") or row.get("Symbol") or "").strip()
+                            close = (row.get("CLOSE") or row.get("CLOSE_PRICE") or row.get("Close") or "").strip()
+                            if sym and close:
+                                try: sym_map[sym] = float(close.replace(",", ""))
+                                except ValueError: pass
+                else:
+                    reader = csv.DictReader(io.StringIO(raw.decode("utf-8", errors="replace")))
+                    for row in reader:
+                        sym   = (row.get("SYMBOL") or row.get("Symbol") or "").strip()
+                        close = (row.get("CLOSE") or row.get("CLOSE_PRICE") or row.get("Close") or "").strip()
+                        if sym and close:
+                            try: sym_map[sym] = float(close.replace(",", ""))
+                            except ValueError: pass
+
+                if sym_map:
+                    print(f"\n  📋 NSE bhavcopy loaded ({dt.strftime('%d %b')}): {len(sym_map)} symbols")
+                    break
+
+            except Exception as e:
+                print(f"  ⚠  NSE bhavcopy {url[50:]}: {e}")
+
+        if sym_map:
+            break
+
+    if not sym_map:
+        print("  ✗  NSE bhavcopy unavailable — all URLs failed")
+        return {}
+
+    # Match missing tickers to bhavcopy symbols
+    result = {}
+    for ticker in missing_symbols:
+        sym = ticker.replace(".NS", "").replace(".BO", "")
+        if sym in sym_map:
+            result[ticker] = {
+                "cmp":    round(sym_map[sym], 2),
+                "high52": None,
+                "low52":  None,
+            }
+            print(f"    ✓  {ticker:<28} ₹{sym_map[sym]:>9.2f}  (bhavcopy)")
+
+    missed = [t for t in missing_symbols if t not in result]
+    if missed:
+        print(f"  Still missing after bhavcopy ({len(missed)}): {', '.join(missed[:8])}{'…' if len(missed)>8 else ''}")
+    return result
+
+
+def load_ipos():
+    """
+    Load IPO list from ipo_tracker_data.json.
+    Returns (listed, upcoming) as lists of dicts.
+    """
+    with open(IPO_JSON) as f:
+        raw = json.load(f)
+
+    today_str = datetime.today().strftime("%d %b %Y")
+    today     = datetime.today()
+
+    listed, upcoming = [], []
+    for ipo in raw:
+        ticker = ipo.get("ticker")
+        if not ticker:
+            continue
+
+        ld = ipo.get("listingDate", "")
+        try:
+            listing_dt = datetime.strptime(ld, "%d %b %Y")
+            is_listed  = listing_dt.date() <= today.date()
+        except ValueError:
+            is_listed = True
+
+        entry = {
+            "name":        ipo["name"],
+            "ticker":      ticker,
+            "offerLow":    ipo.get("offerPriceLow"),
+            "offerHigh":   ipo.get("offerPriceHigh"),
+            "listingDate": ld,
+            "listingClose": ipo.get("listingClose"),
+            "cmp":         None,
+            "high52":      None,
+            "low52":       None,
+            "vsIpo":       None,
+            "business":    ipo.get("business", ""),
+            "moat":        ipo.get("moat", ""),
+        }
+
+        if is_listed:
+            listed.append(entry)
+        else:
+            upcoming.append(entry)
+
+    return listed, upcoming
+
+
+def apply_prices(entries, price_map):
+    """Patch cmp/high52/low52/vsIpo into entry dicts."""
+    for e in entries:
+        p = price_map.get(e["ticker"])
+        if not p:
+            continue
+        e["cmp"]    = p["cmp"]
+        e["high52"] = p.get("high52")
+        e["low52"]  = p.get("low52")
+        lo = e.get("offerLow")
+        hi = e.get("offerHigh")
+        if e["cmp"] and lo and hi:
+            mid = (lo + hi) / 2
+            if mid > 0:
+                e["vsIpo"] = round((e["cmp"] - mid) / mid * 100, 1)
+
+
+def js_val(v):
+    if v is None:
+        return "null"
+    if isinstance(v, str):
+        # Escape backslash and double-quote, then wrap
+        escaped = v.replace("\\", "\\\\").replace('"', '\\"')
+        return f'"{escaped}"'
+    if isinstance(v, float):
+        return str(round(v, 2))
+    return str(v)
+
+
+def ipo_to_js(e, indent="      "):
+    fields = [
+        f'name: {js_val(e["name"])}',
+        f'ticker: {js_val(e["ticker"])}',
+        f'offerLow: {js_val(e["offerLow"])}',
+        f'offerHigh: {js_val(e["offerHigh"])}',
+        f'listingDate: {js_val(e["listingDate"])}',
+        f'listingClose: {js_val(e["listingClose"])}',
+        f'cmp: {js_val(e["cmp"])}',
+        f'high52: {js_val(e["high52"])}',
+        f'low52: {js_val(e["low52"])}',
+        f'vsIpo: {js_val(e["vsIpo"])}',
+        f'business: {js_val(e["business"])}',
+        f'moat: {js_val(e["moat"])}',
+    ]
+    inner = f",\n{indent}  ".join(fields)
+    return f"{indent}{{ {inner} }}"
 
 
 def read_sectors_block(data_js_path):
@@ -104,61 +284,25 @@ def read_sectors_block(data_js_path):
     return m.group(1) if m else 'sectors: { updated: "—", themes: [] }'
 
 
-def read_ipos_block(data_js_path):
-    content = data_js_path.read_text()
-    m = re.search(r'(ipos:\s*\{.*?\n  \})', content, re.DOTALL)
-    return m.group(1) if m else None
-
-
-def update_ipo_prices_in_block(ipos_block, ipo_price_map):
-    """Patch cmp/high52/low52/vsIpo inside the JS ipos block."""
-    def patch_entry(match):
-        obj = match.group(0)
-        tm = re.search(r'ticker:\s*"([^"]+)"', obj)
-        if not tm:
-            return obj
-        ticker = tm.group(1)
-        p = ipo_price_map.get(ticker)
-        if not p:
-            return obj
-
-        cmp, h52, l52 = p["cmp"], p["high52"], p["low52"]
-
-        lom = re.search(r'offerLow:\s*([\d.]+)', obj)
-        him = re.search(r'offerHigh:\s*([\d.]+)', obj)
-        vs_ipo = "null"
-        if lom and him:
-            mid = (float(lom.group(1)) + float(him.group(1))) / 2
-            if mid > 0:
-                vs_ipo = str(round((cmp - mid) / mid * 100, 1))
-
-        obj = re.sub(r'cmp:\s*(?:null|\d+\.?\d*)',    f'cmp: {cmp}', obj)
-        obj = re.sub(r'high52:\s*(?:null|\d+\.?\d*)', f'high52: {h52}', obj)
-        obj = re.sub(r'low52:\s*(?:null|\d+\.?\d*)',  f'low52: {l52}', obj)
-        obj = re.sub(r'vsIpo:\s*(?:null|-?\d+\.?\d*)',f'vsIpo: {vs_ipo}', obj)
-        return obj
-
-    return re.sub(r'\{[^{}]*ticker:[^{}]*\}', patch_entry, ipos_block, flags=re.DOTALL)
-
-
-def write_data_js(data_js_path, watchlist_prices, ipo_prices):
+def write_data_js(data_js_path, wl_prices, ipo_prices, listed, upcoming):
     updated = datetime.now().strftime("%-d %b %Y, %I:%M %p")
 
+    # Apply prices
+    apply_prices(listed, ipo_prices)
+    apply_prices(upcoming, ipo_prices)
+
+    # Watchlist block
     wl_lines = []
     for s in WATCHLIST:
-        p = watchlist_prices.get(s["ns"])
+        p = wl_prices.get(s["ns"])
         cmp_val = str(p["cmp"]) if p else "null"
         wl_lines.append(f'      {{ ticker: "{s["ticker"]}", name: "{s["name"]}", cmp: {cmp_val} }}')
-    wl_block = ",\n".join(wl_lines)
+
+    # IPO blocks
+    listed_js   = ",\n".join(ipo_to_js(e) for e in listed)
+    upcoming_js = ",\n".join(ipo_to_js(e) for e in upcoming)
 
     sectors_block = read_sectors_block(data_js_path)
-
-    ipos_block = read_ipos_block(data_js_path)
-    if ipos_block:
-        ipos_block = update_ipo_prices_in_block(ipos_block, ipo_prices)
-        ipos_block = re.sub(r'updated:\s*"[^"]+"', f'updated: "{updated}"', ipos_block, count=1)
-    else:
-        ipos_block = 'ipos: { updated: "—", listed: [], upcoming: [] }'
 
     content = f"""// data.js — auto-updated by update_prices.py
 // Do not edit manually
@@ -168,29 +312,61 @@ window.PORTFOLIO_DATA = {{
   watchlist: {{
     updated: "{updated}",
     stocks: [
-{wl_block}
+{chr(10).join(wl_lines)}
     ]
   }},
 
   {sectors_block},
 
-  {ipos_block}
+  ipos: {{
+    updated: "{updated}",
+    listed: [
+{listed_js}
+    ],
+    upcoming: [
+{upcoming_js}
+    ]
+  }}
 
 }};
 """
     data_js_path.write_text(content)
-    print(f"\n✅  data.js updated — {updated}")
+
+    priced_listed = sum(1 for e in listed if e["cmp"] is not None)
+    print(f"\n✅  data.js written — {updated}")
+    print(f"   Watchlist: {sum(1 for s in WATCHLIST if wl_prices.get(s['ns']))}/{len(WATCHLIST)} priced")
+    print(f"   IPOs listed: {priced_listed}/{len(listed)} priced  |  upcoming: {len(upcoming)}")
 
 
 def main():
-    deploy = "--deploy" in sys.argv
-    data_js = BASE / "data.js"
+    deploy    = "--deploy" in sys.argv
+    data_js   = BASE / "data.js"
 
-    wl_tickers = [s["ns"] for s in WATCHLIST]
-    wl_prices = batch_prices(wl_tickers, "watchlist")
-    ipo_prices = batch_prices(IPO_TICKERS, "IPO")
+    listed, upcoming = load_ipos()
+    print(f"Loaded {len(listed)} listed + {len(upcoming)} upcoming IPOs from JSON")
 
-    write_data_js(data_js, wl_prices, ipo_prices)
+    # ── Step 1: yfinance batch ────────────────────────────────────────────────
+    wl_tickers  = [s["ns"] for s in WATCHLIST]
+    ipo_tickers = [e["ticker"] for e in listed + upcoming]
+
+    wl_prices  = batch_prices(wl_tickers, "watchlist")
+    ipo_prices = batch_prices(ipo_tickers, "IPO")
+
+    # ── Step 2: NSE bhavcopy for IPO misses ───────────────────────────────────
+    missing = [t for t in ipo_tickers if t not in ipo_prices]
+    print(f"\n🔍 {len(missing)} IPO tickers not found in yfinance — trying NSE bhavcopy...")
+    bhav = nse_bhavcopy_prices(missing)
+    ipo_prices.update(bhav)
+
+    # ── Step 3: NSE bhavcopy for watchlist misses ─────────────────────────────
+    wl_missing = [s["ns"] for s in WATCHLIST if s["ns"] not in wl_prices]
+    if wl_missing:
+        print(f"\n🔍 {len(wl_missing)} watchlist tickers not in yfinance — trying NSE bhavcopy...")
+        wl_bhav = nse_bhavcopy_prices(wl_missing)
+        wl_prices.update(wl_bhav)
+
+    # ── Step 4: Write data.js ─────────────────────────────────────────────────
+    write_data_js(data_js, wl_prices, ipo_prices, listed, upcoming)
 
     if deploy:
         print("\n🚀 Running deploy.sh...")

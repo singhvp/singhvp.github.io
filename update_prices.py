@@ -312,7 +312,7 @@ window.PORTFOLIO_DATA = {{
   watchlist: {{
     updated: "{updated}",
     stocks: [
-{chr(10).join(wl_lines)}
+{(",\n").join(wl_lines)}
     ]
   }},
 

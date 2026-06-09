@@ -27,6 +27,9 @@ jobs:
         run: |
           [ -f ipo_tracker_data.json ] || echo '{"listed":[],"upcoming":[]}' > ipo_tracker_data.json
 
+      - name: Debug IPO_JSON path
+        run: grep -n "IPO_JSON" update_prices.py
+
       - name: Fetch prices and update data.js
         run: python3 update_prices.py
 

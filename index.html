@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vinay Singh — Industrial Engineer & Data Scientist</title>
+  <title>Vinay Singh — Data Science Lead, Manufacturing Operations</title>
   <style>
     :root {
       --bg: #0f0f0f;
@@ -94,7 +94,7 @@
     .hero-sub {
       font-size: 1.15rem;
       color: var(--muted);
-      max-width: 540px;
+      max-width: 560px;
       margin-bottom: 2.5rem;
       line-height: 1.7;
     }
@@ -263,6 +263,27 @@
       grid-column: 1 / -1;
       margin-top: 0.5rem;
     }
+    .exp-bullets {
+      grid-column: 1 / -1;
+      margin-top: 0.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .exp-bullet {
+      font-size: 0.875rem;
+      color: var(--muted);
+      line-height: 1.6;
+      padding-left: 1rem;
+      position: relative;
+    }
+    .exp-bullet::before {
+      content: "→";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-size: 0.8rem;
+    }
     .exp-skills {
       display: flex;
       flex-wrap: wrap;
@@ -357,6 +378,21 @@
       margin-bottom: 0.5rem;
     }
     .interest-desc { font-size: 0.875rem; color: var(--muted); line-height: 1.6; }
+    .interest-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-top: 0.75rem;
+    }
+    .interest-tag {
+      padding: 0.2rem 0.55rem;
+      background: rgba(232, 93, 38, 0.08);
+      border: 1px solid rgba(232, 93, 38, 0.15);
+      border-radius: 4px;
+      font-size: 0.72rem;
+      color: var(--accent);
+      font-weight: 500;
+    }
 
     /* CONTACT */
     #contact {
@@ -460,97 +496,6 @@
       margin-bottom: 1.5rem;
     }
 
-    /* IPO SECTION */
-    .ipo-meta { font-size: 0.75rem; color: var(--muted); margin-bottom: 1.5rem; }
-    .ipo-upcoming-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-      gap: 1.25rem;
-      margin-bottom: 3rem;
-    }
-    .ipo-upcoming-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-left: 3px solid var(--accent2);
-      border-radius: 12px;
-      padding: 1.5rem;
-      transition: border-color 0.2s;
-    }
-    .ipo-upcoming-card:hover { border-color: var(--accent2); }
-    .ipo-uc-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem; }
-    .ipo-uc-name { font-size: 0.95rem; font-weight: 700; color: var(--text); flex: 1; }
-    .ipo-uc-badge {
-      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em;
-      text-transform: uppercase; color: var(--accent2);
-      background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.25);
-      border-radius: 4px; padding: 0.2rem 0.5rem; white-space: nowrap; margin-left: 0.75rem;
-    }
-    .ipo-uc-meta { display: flex; gap: 1.5rem; margin-bottom: 0.75rem; }
-    .ipo-uc-field label { font-size: 0.68rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; display: block; }
-    .ipo-uc-field span { font-size: 0.9rem; font-weight: 600; color: var(--text); }
-    .ipo-uc-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
-
-    /* Listed IPO table */
-    .ipo-controls {
-      display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 1.25rem; align-items: center;
-    }
-    .ipo-search {
-      flex: 1; min-width: 180px; max-width: 280px;
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 6px; padding: 0.55rem 0.9rem;
-      color: var(--text); font-size: 0.85rem; outline: none;
-    }
-    .ipo-search:focus { border-color: var(--accent); }
-    .ipo-filter-btns { display: flex; gap: 0.5rem; flex-wrap: wrap; }
-    .ipo-filter-btn {
-      padding: 0.45rem 0.85rem; border-radius: 5px; font-size: 0.78rem; font-weight: 600;
-      border: 1px solid var(--border); background: var(--surface); color: var(--muted);
-      cursor: pointer; transition: all 0.15s;
-    }
-    .ipo-filter-btn.active, .ipo-filter-btn:hover { border-color: var(--accent); color: var(--accent); background: rgba(232,93,38,0.08); }
-    .ipo-sort {
-      background: var(--surface); border: 1px solid var(--border); border-radius: 6px;
-      padding: 0.5rem 0.75rem; color: var(--muted); font-size: 0.82rem; outline: none;
-    }
-    .ipo-stats {
-      display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 1.5rem;
-      padding: 1rem 1.25rem; background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
-    }
-    .ipo-stat label { font-size: 0.68rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; display: block; }
-    .ipo-stat span { font-size: 1rem; font-weight: 700; color: var(--text); }
-    .ipo-table-wrap { overflow-x: auto; }
-    table.ipo-tbl { width: 100%; border-collapse: collapse; font-size: 0.82rem; min-width: 700px; }
-    .ipo-tbl th {
-      background: var(--surface); padding: 0.65rem 0.75rem; text-align: left;
-      border-bottom: 2px solid var(--border); font-size: 0.72rem; font-weight: 700;
-      text-transform: uppercase; letter-spacing: 0.07em; color: var(--muted);
-      cursor: pointer; white-space: nowrap; user-select: none;
-    }
-    .ipo-tbl th:hover { color: var(--text); }
-    .ipo-tbl th.sorted { color: var(--accent); }
-    .ipo-tbl td { padding: 0.65rem 0.75rem; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--muted); }
-    .ipo-tbl tr:hover td { background: rgba(255,255,255,0.02); cursor: pointer; }
-    .ipo-tbl tr.ipo-expanded td { background: rgba(232,93,38,0.04); }
-    .ipo-tbl .ipo-name { font-weight: 600; color: var(--text); font-size: 0.85rem; }
-    .ipo-tbl .ipo-ticker { font-size: 0.72rem; color: var(--accent); font-weight: 700; }
-    .ipo-tbl .num { text-align: right; font-variant-numeric: tabular-nums; }
-    .ipo-tbl .pos { color: #4ade80; }
-    .ipo-tbl .neg { color: #f87171; }
-    .ipo-tbl .na { color: #555; }
-    .ipo-expand-row { display: none; }
-    .ipo-expand-row.open { display: table-row; }
-    .ipo-expand-row td {
-      background: rgba(255,255,255,0.015) !important;
-      padding: 0.85rem 1.25rem 1rem; border-bottom: 2px solid var(--border);
-    }
-    .ipo-expand-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem 2rem; }
-    .ipo-expand-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); margin-bottom: 0.2rem; }
-    .ipo-expand-text { font-size: 0.82rem; color: var(--muted); line-height: 1.55; }
-    @media (max-width: 640px) {
-      .ipo-expand-inner { grid-template-columns: 1fr; }
-      .ipo-upcoming-grid { grid-template-columns: 1fr; }
-    }
-
     /* FOOTER */
     footer {
       border-top: 1px solid var(--border);
@@ -585,18 +530,16 @@
       <li><a href="#interests">Interests</a></li>
       <li><a href="#watchlist">Watchlist</a></li>
       <li><a href="#sectors">Sectors</a></li>
-      <li><a href="#ipos">IPOs</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
   </nav>
 
   <!-- HERO -->
   <section id="hero" style="padding-left:2.5rem;padding-right:2.5rem;">
-    <span class="hero-tag">📍 Pittsburgh, PA</span>
+    <span class="hero-tag">📍 Jaipur, India</span>
     <h1>Vinay<br><em>Singh</em></h1>
     <p class="hero-sub">
-      Industrial Engineer at Kennametal working on IoT in metal cutting.
-      Building data science tools, investment dashboards, and defense sector research on the side.
+      Leading Data Science teams in advanced manufacturing operations. Architecting AI-assisted engineering workflows, deep-tech investment dashboards, and physical-to-digital system integrations.
     </p>
     <div class="hero-links">
       <a href="#projects" class="btn btn-primary">View Projects</a>
@@ -615,12 +558,12 @@
         <div class="label">Years in Industry</div>
       </div>
       <div class="hero-stat">
-        <div class="num">IoT</div>
-        <div class="label">Focus at Kennametal</div>
+        <div class="num">DS Lead</div>
+        <div class="label">Manufacturing Ops</div>
       </div>
       <div class="hero-stat">
-        <div class="num">R → Py</div>
-        <div class="label">Data Science Stack</div>
+        <div class="num">AI → Prod</div>
+        <div class="label">Agent Pipelines</div>
       </div>
     </div>
   </section>
@@ -628,38 +571,39 @@
   <!-- ABOUT -->
   <section id="about">
     <div class="section-label">About</div>
-    <h2>Engineer by trade,<br>data scientist by curiosity.</h2>
+    <h2>Engineer by trade,<br>data scientist by design.</h2>
     <div class="divider"></div>
     <div class="about-grid">
       <div class="about-text">
         <p>
-          I'm an <strong>Industrial Engineer</strong> at Kennametal in Pittsburgh, PA, where I work on IoT applications in metal cutting and manufacturing. My work sits at the intersection of physical systems and data.
+          I lead a <strong>Data Science team supporting manufacturing operations</strong> at Kennametal in Jaipur, focused on tungsten carbide cutting tool production lines. My work sits at the intersection of physical systems, predictive analytics, and operational scale.
         </p>
         <p>
-          Outside of work I build <strong>investment analysis tools</strong>, track portfolio performance across multiple accounts, and research Indian defense & aerospace companies as an investment theme.
+          Beyond manufacturing, I build <strong>investment analysis tools</strong>, track portfolio performance across multiple accounts, and research Indian defense &amp; deep-tech as investment themes.
         </p>
         <p>
-          I started with R (and still love it), but I'm transitioning my team to <strong>Python and AI-assisted workflows</strong> — building agents and data science pipelines that actually get used.
+          My team is mid-transition from R to <strong>Python on Databricks</strong> — not just a language swap, but an efficiency play: using LLM APIs, building custom AI agents to automate data science pipelines, and deploying at scale with modern tooling.
         </p>
         <div class="about-tags">
           <span class="tag">Python</span>
-          <span class="tag">R</span>
-          <span class="tag">Pandas</span>
-          <span class="tag">IoT</span>
-          <span class="tag">Data Viz</span>
-          <span class="tag">Finance Analysis</span>
-          <span class="tag">Claude / LLM APIs</span>
+          <span class="tag">Databricks</span>
+          <span class="tag">Agentic Workflows</span>
+          <span class="tag">MCP Tooling</span>
+          <span class="tag">Industrial IoT</span>
+          <span class="tag">LLM APIs</span>
+          <span class="tag">Reliability Engineering</span>
           <span class="tag">GitHub</span>
         </div>
       </div>
       <div class="about-card">
         <h3>Quick Facts</h3>
         <ul>
-          <li><span class="dot"></span>📍 Pittsburgh, PA</li>
-          <li><span class="dot"></span>🏭 Kennametal — IoT in metal cutting</li>
+          <li><span class="dot"></span>📍 Jaipur, India</li>
+          <li><span class="dot"></span>🏭 Kennametal — Data Science Lead, Mfg Ops</li>
+          <li><span class="dot"></span>🔬 Tungsten carbide production analytics</li>
           <li><span class="dot"></span>📊 Built family investment dashboards</li>
-          <li><span class="dot"></span>🛡️ Tracks Indian defense sector</li>
-          <li><span class="dot"></span>🤖 Building with AI agents (Claude)</li>
+          <li><span class="dot"></span>🛡️ Tracks Indian defense &amp; deep-tech</li>
+          <li><span class="dot"></span>🤖 Building AI agent pipelines (Claude + MCP)</li>
           <li><span class="dot"></span>📧 vinaytweets@gmail.com</li>
         </ul>
       </div>
@@ -675,53 +619,44 @@
 
       <div class="exp-item">
         <div>
-          <div class="exp-role">Industrial Engineer — IoT</div>
+          <div class="exp-role">Data Science Lead — Manufacturing Operations</div>
           <div class="exp-company">Kennametal</div>
         </div>
         <div class="exp-period">Current</div>
-        <div class="exp-desc">
-          Working on IoT applications in the metal working / metal cutting industry. Connecting machine data, sensors, and software to improve manufacturing outcomes. Leading a shift from R to Python for data science workflows.
+        <div class="exp-bullets">
+          <div class="exp-bullet">Leading a dedicated Data Science team supporting tungsten carbide cutting tool production lines — predictive yield models, process optimisation, and sensor data analytics at scale.</div>
+          <div class="exp-bullet">Architecting the team's migration from legacy R environments to Python on Databricks — framed not as a language switch, but as an operational efficiency play enabling automated data engineering pipelines.</div>
+          <div class="exp-bullet">Building custom AI agents using LLM APIs and MCP tooling to automate data science workflows, eliminating manual analysis loops across manufacturing data streams.</div>
+          <div class="exp-bullet">Designing engineering training assessment frameworks for systems reliability evaluation — including electronic system testing models and automated grading pipelines for industrial training programs.</div>
         </div>
         <div class="exp-skills">
-          <span class="tag">IoT</span>
           <span class="tag">Python</span>
-          <span class="tag">R</span>
+          <span class="tag">Databricks</span>
+          <span class="tag">Agentic Workflows</span>
+          <span class="tag">MCP Tooling</span>
+          <span class="tag">Industrial IoT</span>
+          <span class="tag">Reliability Engineering</span>
           <span class="tag">Manufacturing Analytics</span>
         </div>
       </div>
 
       <div class="exp-item">
         <div>
-          <div class="exp-role">Data Analysis & Visualization</div>
+          <div class="exp-role">Investment Analytics &amp; Portfolio Systems</div>
           <div class="exp-company">Personal Projects</div>
         </div>
         <div class="exp-period">2017 – Present</div>
-        <div class="exp-desc">
-          Built investment dashboards tracking 4 Zerodha accounts across multiple fiscal years. Developed behavioral analysis tools, FIFO P&amp;L matching, and benchmark comparison against Nifty 50/500. Created interactive HTML dashboards and Word/PDF reports in Hindi and English.
+        <div class="exp-bullets">
+          <div class="exp-bullet">Built investment dashboards tracking 4 Zerodha accounts across multiple fiscal years (FY20–present) with a custom automated FIFO matching algorithm for multi-account P&amp;L processing.</div>
+          <div class="exp-bullet">Developed behavioral analysis tools, win rate tracking, and benchmark comparison against Nifty 50/500. Interactive HTML dashboards and Word/PDF reports in Hindi and English.</div>
+          <div class="exp-bullet">6-layer value chain decomposition framework for Indian defense &amp; deep-tech sector research, with weekly watchlist monitoring and thesis stress-testing via AI-assisted workflows.</div>
         </div>
         <div class="exp-skills">
           <span class="tag">Python</span>
           <span class="tag">Pandas</span>
           <span class="tag">Chart.js</span>
-          <span class="tag">Excel</span>
           <span class="tag">Finance</span>
-        </div>
-      </div>
-
-      <div class="exp-item">
-        <div>
-          <div class="exp-role">R & Tidyverse Projects</div>
-          <div class="exp-company">Open Source / TidyTuesday</div>
-        </div>
-        <div class="exp-period">2017 – 2020</div>
-        <div class="exp-desc">
-          Participated in TidyTuesday weekly data challenges. Built data visualizations and analysis projects including streetlights data analysis, Outlook metadata analysis, and production data exploration using the tidyverse.
-        </div>
-        <div class="exp-skills">
-          <span class="tag">R</span>
-          <span class="tag">ggplot2</span>
-          <span class="tag">tidyverse</span>
-          <span class="tag">Data Viz</span>
+          <span class="tag">Claude AI</span>
         </div>
       </div>
 
@@ -737,6 +672,40 @@
 
       <div class="project-card">
         <div class="project-header">
+          <div class="project-icon">📋</div>
+          <div class="project-links"></div>
+        </div>
+        <div class="project-title">Engineering Training Assessment Frameworks</div>
+        <div class="project-desc">
+          Practical evaluation programs for engineering systems reliability. Covers electronic system reliability testing models, failure mode analysis, and automated grading frameworks for industrial training programs. Built to assess real operational readiness — not just theoretical knowledge.
+        </div>
+        <div class="project-tags">
+          <span class="project-tag">Reliability Engineering</span>
+          <span class="project-tag">Assessment Design</span>
+          <span class="project-tag">Python</span>
+          <span class="project-tag">Manufacturing</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-header">
+          <div class="project-icon">🏭</div>
+          <div class="project-links"></div>
+        </div>
+        <div class="project-title">Manufacturing Data Science Platform — Kennametal</div>
+        <div class="project-desc">
+          Operational data science for tungsten carbide cutting tool production. Connects CNC machine data, sensors, and predictive models to drive yield improvement and process optimisation. Built on Databricks with AI-assisted pipeline automation replacing manual analysis cycles.
+        </div>
+        <div class="project-tags">
+          <span class="project-tag">Databricks</span>
+          <span class="project-tag">Python</span>
+          <span class="project-tag">Industrial IoT</span>
+          <span class="project-tag">Predictive Analytics</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-header">
           <div class="project-icon">📊</div>
           <div class="project-links">
             <a href="https://github.com/singhvp" class="project-link" title="GitHub">
@@ -746,7 +715,7 @@
         </div>
         <div class="project-title">Investment Analytics Dashboard</div>
         <div class="project-desc">
-          Full analysis of 4 Zerodha trading accounts (FY20–27). FIFO P&amp;L matching, behavioral metrics, win rate tracking, and benchmark comparison against Nifty 50/500. Interactive HTML dashboard + Hindi/English Word reports.
+          Full analysis of 4 Zerodha trading accounts (FY20–present). Custom automated FIFO matching algorithm for multi-account P&amp;L processing, behavioral metrics, win rate tracking, and benchmark comparison against Nifty 50/500. Interactive HTML dashboard + Hindi/English Word reports.
         </div>
         <div class="project-tags">
           <span class="project-tag">Python</span>
@@ -765,52 +734,15 @@
             </a>
           </div>
         </div>
-        <div class="project-title">India Defense Sector Research</div>
+        <div class="project-title">India Defense &amp; Deep-Tech Research</div>
         <div class="project-desc">
-          6-layer value chain decomposition of Indian defense sub-systems. Tracks 20+ listed and private companies across electronics, drones, precision components, and MRO. Weekly watchlist monitoring thesis stress-tests.
+          6-layer value chain decomposition of Indian defense sub-systems. Tracks 20+ listed and private companies across AESA radar &amp; MMIC subsystems, aerospace precision castings, and electronic warfare. Weekly watchlist monitoring with AI-assisted thesis stress-tests.
         </div>
         <div class="project-tags">
           <span class="project-tag">Research</span>
           <span class="project-tag">Value Chain</span>
           <span class="project-tag">Claude AI</span>
-          <span class="project-tag">Finance</span>
-        </div>
-      </div>
-
-      <div class="project-card">
-        <div class="project-header">
-          <div class="project-icon">🏭</div>
-          <div class="project-links"></div>
-        </div>
-        <div class="project-title">IoT in Metal Cutting — Kennametal</div>
-        <div class="project-desc">
-          Industrial IoT applications connecting CNC machine data, sensors, and analytics in the metal working industry. Focus on process optimization and predictive insights from manufacturing data streams.
-        </div>
-        <div class="project-tags">
-          <span class="project-tag">IoT</span>
-          <span class="project-tag">Python</span>
-          <span class="project-tag">Manufacturing</span>
-        </div>
-      </div>
-
-      <div class="project-card">
-        <div class="project-header">
-          <div class="project-icon">📈</div>
-          <div class="project-links">
-            <a href="https://github.com/singhvp/orwell_basics" target="_blank" class="project-link" title="GitHub">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-            </a>
-          </div>
-        </div>
-        <div class="project-title">TidyTuesday & R Data Viz</div>
-        <div class="project-desc">
-          Weekly data visualization challenges using R and tidyverse. Projects include production data analysis, streetlights dataset from European Data Portal, and Outlook metadata exploration.
-        </div>
-        <div class="project-tags">
-          <span class="project-tag">R</span>
-          <span class="project-tag">ggplot2</span>
-          <span class="project-tag">tidyverse</span>
-          <span class="project-tag">Open Data</span>
+          <span class="project-tag">Defense</span>
         </div>
       </div>
 
@@ -823,36 +755,73 @@
     <h2>What I'm thinking about.</h2>
     <div class="divider"></div>
     <div class="interests-grid">
+
       <div class="interest-card">
         <div class="interest-icon">🤖</div>
-        <div class="interest-title">AI & Agents</div>
-        <div class="interest-desc">Building with LLMs and autonomous agents — Claude, MCP tooling, AI-assisted data science pipelines.</div>
+        <div class="interest-title">Agentic AI &amp; MCP Tooling</div>
+        <div class="interest-desc">Building production AI agents for data science automation — Claude, MCP (Model Context Protocol) tooling, and custom LLM APIs wired into operational workflows.</div>
+        <div class="interest-tags">
+          <span class="interest-tag">Agentic Workflows</span>
+          <span class="interest-tag">MCP Tooling</span>
+          <span class="interest-tag">Custom LLM APIs</span>
+        </div>
       </div>
+
+      <div class="interest-card">
+        <div class="interest-icon">🏭</div>
+        <div class="interest-title">Manufacturing Data Science</div>
+        <div class="interest-desc">Connecting tungsten carbide production lines to predictive analytics — sensor fusion, yield modelling, and reliability engineering assessment design at industrial scale.</div>
+        <div class="interest-tags">
+          <span class="interest-tag">Tungsten Carbide Analytics</span>
+          <span class="interest-tag">Industrial IoT</span>
+          <span class="interest-tag">Reliability Engineering</span>
+        </div>
+      </div>
+
+      <div class="interest-card">
+        <div class="interest-icon">⚡</div>
+        <div class="interest-title">Databricks &amp; Data Engineering</div>
+        <div class="interest-desc">Migrating teams from legacy R to Python on Databricks — automated data engineering pipelines, reproducible workflows, and scalable analytical platforms that non-data teams can actually use.</div>
+        <div class="interest-tags">
+          <span class="interest-tag">Databricks</span>
+          <span class="interest-tag">Python Pipeline Architecture</span>
+          <span class="interest-tag">Automated Data Engineering</span>
+        </div>
+      </div>
+
       <div class="interest-card">
         <div class="interest-icon">🛡️</div>
-        <div class="interest-title">Defense Sector Investing</div>
-        <div class="interest-desc">Tracking Indian defense sub-system companies — electronics, drones, precision components — as a long-term investment theme.</div>
+        <div class="interest-title">Defense &amp; Deep-Tech Investing</div>
+        <div class="interest-desc">Tracking Indian defense sub-system companies — AESA radar, MMIC, aerospace precision components, and electronic warfare — as a long-term investment theme via 6-layer value chain decomposition.</div>
+        <div class="interest-tags">
+          <span class="interest-tag">AESA / MMIC</span>
+          <span class="interest-tag">Aerospace Components</span>
+          <span class="interest-tag">Value Chain Research</span>
+        </div>
       </div>
+
       <div class="interest-card">
         <div class="interest-icon">📊</div>
         <div class="interest-title">Quantitative Finance</div>
-        <div class="interest-desc">Building tools for portfolio analysis, behavioral trading metrics, and benchmark comparison. P&amp;L attribution and pattern recognition in trading data.</div>
+        <div class="interest-desc">Portfolio analysis tools, FIFO P&amp;L attribution, behavioral trading metrics, and benchmark comparison. Building systems that reveal patterns in personal investment data.</div>
+        <div class="interest-tags">
+          <span class="interest-tag">FIFO P&amp;L Matching</span>
+          <span class="interest-tag">Behavioral Metrics</span>
+          <span class="interest-tag">Nifty Benchmarking</span>
+        </div>
       </div>
-      <div class="interest-card">
-        <div class="interest-icon">🏭</div>
-        <div class="interest-title">Industrial IoT</div>
-        <div class="interest-desc">Connecting physical manufacturing systems to data — sensors, CNC machines, and predictive analytics in metal working.</div>
-      </div>
-      <div class="interest-card">
-        <div class="interest-icon">🐍</div>
-        <div class="interest-title">Python for Data Science</div>
-        <div class="interest-desc">Transitioning teams from R to Python — building reproducible pipelines, dashboards, and analysis workflows that non-data people can actually use.</div>
-      </div>
+
       <div class="interest-card">
         <div class="interest-icon">📚</div>
-        <div class="interest-title">Research & Writing</div>
-        <div class="interest-desc">Long-form sector research, investment theses, and communicating complex analysis clearly — in English and Hindi.</div>
+        <div class="interest-title">Research &amp; Sector Writing</div>
+        <div class="interest-desc">Long-form sector research, investment theses, and communicating complex analysis clearly — in English and Hindi. Sector deep-dives that bridge operational knowledge with market structure.</div>
+        <div class="interest-tags">
+          <span class="interest-tag">Sector Analysis</span>
+          <span class="interest-tag">Hindi + English</span>
+          <span class="interest-tag">Investment Theses</span>
+        </div>
       </div>
+
     </div>
   </section>
 
@@ -878,71 +847,11 @@
     </div>
   </section>
 
-  <!-- IPOs -->
-  <section id="ipos">
-    <div class="section-label">IPO Tracker</div>
-    <h2>Indian IPOs<br>Jun 2025 – Jun 2026.</h2>
-    <div class="divider"></div>
-    <p class="ipo-meta" id="ipo-updated">Last updated: —</p>
-
-    <!-- Upcoming -->
-    <div id="ipo-upcoming-wrap" style="display:none">
-      <h3 style="font-size:1rem;font-weight:700;color:var(--accent2);margin-bottom:1rem;letter-spacing:0.05em;">🔔 LISTING SOON</h3>
-      <div class="ipo-upcoming-grid" id="ipo-upcoming-grid"></div>
-    </div>
-
-    <!-- Stats bar -->
-    <div class="ipo-stats" id="ipo-stats" style="display:none">
-      <div class="ipo-stat"><label>Total</label><span id="s-total">—</span></div>
-      <div class="ipo-stat"><label>With CMP</label><span id="s-priced">—</span></div>
-      <div class="ipo-stat"><label>Gainers</label><span id="s-gain" class="pos">—</span></div>
-      <div class="ipo-stat"><label>Losers</label><span id="s-loss" class="neg">—</span></div>
-      <div class="ipo-stat"><label>Avg vs IPO</label><span id="s-avg">—</span></div>
-    </div>
-
-    <!-- Controls -->
-    <div class="ipo-controls">
-      <input class="ipo-search" type="text" id="ipo-search" placeholder="Search company…">
-      <div class="ipo-filter-btns">
-        <button class="ipo-filter-btn active" data-filter="all">All</button>
-        <button class="ipo-filter-btn" data-filter="gainers">▲ Gainers</button>
-        <button class="ipo-filter-btn" data-filter="losers">▼ Losers</button>
-        <button class="ipo-filter-btn" data-filter="moat">✦ Has Moat</button>
-      </div>
-      <select class="ipo-sort" id="ipo-sort">
-        <option value="date-desc">Listed: Newest</option>
-        <option value="date-asc">Listed: Oldest</option>
-        <option value="vsipo-desc">Best Return</option>
-        <option value="vsipo-asc">Worst Return</option>
-        <option value="cmp-desc">CMP: High→Low</option>
-      </select>
-    </div>
-
-    <!-- Table -->
-    <div class="ipo-table-wrap">
-      <table class="ipo-tbl" id="ipo-table">
-        <thead>
-          <tr>
-            <th style="min-width:180px">#&nbsp;Company</th>
-            <th>Listed</th>
-            <th class="num">Offer ₹</th>
-            <th class="num">List Close</th>
-            <th class="num">CMP ₹</th>
-            <th class="num">vs IPO</th>
-            <th class="num">52W H</th>
-            <th class="num">52W L</th>
-          </tr>
-        </thead>
-        <tbody id="ipo-tbody"></tbody>
-      </table>
-    </div>
-  </section>
-
   <!-- CONTACT -->
   <section id="contact">
     <div class="section-label">Contact</div>
     <h2>Let's connect.</h2>
-    <p>Open to conversations about IoT, data science, investing, or building with AI.</p>
+    <p>Open to conversations about manufacturing data science, AI agent development, investing, or building with LLMs.</p>
     <div class="contact-links">
       <a href="mailto:vinaytweets@gmail.com" class="btn btn-primary">✉️ Email Me</a>
       <a href="https://www.linkedin.com/in/vinaypratapsingh/" target="_blank" class="btn btn-ghost">LinkedIn</a>
@@ -955,7 +864,7 @@
     <p>Built by Vinay Singh · <a href="https://github.com/singhvp/singhvp.github.io" style="color:var(--muted);text-decoration:none;">singhvp.github.io</a></p>
   </footer>
 
-  <script src="data.js?v=3"></script>
+  <script src="data.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       if (typeof window.PORTFOLIO_DATA === 'undefined') return;
@@ -999,149 +908,6 @@
           `;
           sGrid.appendChild(card);
         });
-      }
-
-      // --- IPOs ---
-      if (data.ipos) {
-        document.getElementById('ipo-updated').textContent = 'Last updated: ' + data.ipos.updated;
-
-        // Upcoming cards
-        const upcoming = data.ipos.upcoming || [];
-        if (upcoming.length) {
-          document.getElementById('ipo-upcoming-wrap').style.display = '';
-          const ugrid = document.getElementById('ipo-upcoming-grid');
-          upcoming.forEach(ipo => {
-            const mid = ((ipo.offerLow||0) + (ipo.offerHigh||0)) / 2;
-            const offerStr = ipo.offerLow === ipo.offerHigh
-              ? '₹' + ipo.offerLow
-              : '₹' + ipo.offerLow + '–' + ipo.offerHigh;
-            ugrid.innerHTML += `
-              <div class="ipo-upcoming-card">
-                <div class="ipo-uc-header">
-                  <div class="ipo-uc-name">${ipo.name}</div>
-                  <div class="ipo-uc-badge">LISTING ${ipo.listingDate}</div>
-                </div>
-                <div class="ipo-uc-meta">
-                  <div class="ipo-uc-field"><label>Offer Price</label><span>${offerStr}</span></div>
-                  <div class="ipo-uc-field"><label>Ticker</label><span>${ipo.ticker || '—'}</span></div>
-                </div>
-                <div class="ipo-uc-desc">${ipo.business || ''}</div>
-              </div>`;
-          });
-        }
-
-        // Listed table
-        let ipoList = (data.ipos.listed || []).slice();
-        let activeFilter = 'all';
-        let activeSort = 'date-desc';
-
-        function hasMoat(ipo) {
-          return ipo.moat && !ipo.moat.toLowerCase().startsWith('none');
-        }
-        function fmt(v, prefix='₹', decimals=2) {
-          if (v == null) return '<span class="na">—</span>';
-          return prefix + Number(v).toLocaleString('en-IN', {minimumFractionDigits: decimals, maximumFractionDigits: decimals});
-        }
-        function fmtPct(v) {
-          if (v == null) return '<span class="na">—</span>';
-          const cls = v >= 0 ? 'pos' : 'neg';
-          const sign = v >= 0 ? '+' : '';
-          return `<span class="${cls}">${sign}${v.toFixed(1)}%</span>`;
-        }
-
-        function updateStats(rows) {
-          const priced = rows.filter(x => x.cmp != null);
-          const gainers = priced.filter(x => (x.vsIpo||0) >= 0);
-          const losers  = priced.filter(x => (x.vsIpo||0) < 0);
-          const avg = priced.length ? (priced.reduce((s,x)=>s+(x.vsIpo||0),0)/priced.length) : null;
-          document.getElementById('s-total').textContent = rows.length;
-          document.getElementById('s-priced').textContent = priced.length;
-          document.getElementById('s-gain').textContent = gainers.length;
-          document.getElementById('s-loss').textContent = losers.length;
-          document.getElementById('s-avg').textContent = avg != null ? (avg>=0?'+':'')+avg.toFixed(1)+'%' : '—';
-          document.getElementById('s-avg').className = avg == null ? '' : avg >= 0 ? 'pos' : 'neg';
-          document.getElementById('ipo-stats').style.display = '';
-        }
-
-        function renderTable() {
-          const q = document.getElementById('ipo-search').value.toLowerCase();
-          let rows = ipoList.filter(ipo => {
-            if (q && !ipo.name.toLowerCase().includes(q) && !(ipo.ticker||'').toLowerCase().includes(q)) return false;
-            if (activeFilter === 'gainers') return ipo.vsIpo != null && ipo.vsIpo >= 0;
-            if (activeFilter === 'losers')  return ipo.vsIpo != null && ipo.vsIpo < 0;
-            if (activeFilter === 'moat')    return hasMoat(ipo);
-            return true;
-          });
-
-          rows.sort((a, b) => {
-            if (activeSort === 'date-desc') return (b.listingDate||'').localeCompare(a.listingDate||'');
-            if (activeSort === 'date-asc')  return (a.listingDate||'').localeCompare(b.listingDate||'');
-            if (activeSort === 'vsipo-desc') return (b.vsIpo??-999) - (a.vsIpo??-999);
-            if (activeSort === 'vsipo-asc')  return (a.vsIpo??999) - (b.vsIpo??999);
-            if (activeSort === 'cmp-desc')   return (b.cmp??0) - (a.cmp??0);
-            return 0;
-          });
-
-          updateStats(rows);
-
-          const tbody = document.getElementById('ipo-tbody');
-          tbody.innerHTML = '';
-          rows.forEach((ipo, idx) => {
-            const offerStr = ipo.offerLow === ipo.offerHigh
-              ? '₹' + ipo.offerLow
-              : '₹' + (ipo.offerLow||'?') + '–' + (ipo.offerHigh||'?');
-            const moatIcon = hasMoat(ipo) ? '<span style="color:var(--accent2)">✦</span>' : '';
-            const rowId = 'ipo-exp-' + idx;
-
-            const tr = document.createElement('tr');
-            tr.className = 'ipo-data-row';
-            tr.dataset.idx = idx;
-            tr.innerHTML = `
-              <td><div class="ipo-name">${moatIcon} ${ipo.name}</div><div class="ipo-ticker">${ipo.ticker||''}</div></td>
-              <td>${ipo.listingDate||'—'}</td>
-              <td class="num">${offerStr}</td>
-              <td class="num">${ipo.listingClose ? '₹'+Number(ipo.listingClose).toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2}) : '<span class="na">—</span>'}</td>
-              <td class="num">${ipo.cmp ? '₹'+Number(ipo.cmp).toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2}) : '<span class="na">—</span>'}</td>
-              <td class="num">${fmtPct(ipo.vsIpo)}</td>
-              <td class="num">${ipo.high52 ? '₹'+Number(ipo.high52).toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2}) : '<span class="na">—</span>'}</td>
-              <td class="num">${ipo.low52  ? '₹'+Number(ipo.low52).toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2}) : '<span class="na">—</span>'}</td>`;
-            tbody.appendChild(tr);
-
-            const expandTr = document.createElement('tr');
-            expandTr.id = rowId;
-            expandTr.className = 'ipo-expand-row';
-            expandTr.innerHTML = `<td colspan="8">
-              <div class="ipo-expand-inner">
-                <div>
-                  <div class="ipo-expand-label">Business</div>
-                  <div class="ipo-expand-text">${ipo.business||'—'}</div>
-                </div>
-                <div>
-                  <div class="ipo-expand-label">Moat</div>
-                  <div class="ipo-expand-text">${ipo.moat||'—'}</div>
-                </div>
-              </div></td>`;
-            tbody.appendChild(expandTr);
-
-            tr.addEventListener('click', () => {
-              const open = expandTr.classList.toggle('open');
-              tr.classList.toggle('ipo-expanded', open);
-            });
-          });
-        }
-
-        document.getElementById('ipo-search').addEventListener('input', renderTable);
-        document.getElementById('ipo-sort').addEventListener('change', e => { activeSort = e.target.value; renderTable(); });
-        document.querySelectorAll('.ipo-filter-btn').forEach(btn => {
-          btn.addEventListener('click', () => {
-            document.querySelectorAll('.ipo-filter-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            activeFilter = btn.dataset.filter;
-            renderTable();
-          });
-        });
-
-        renderTable();
       }
     });
   </script>

@@ -4,7 +4,7 @@
 window.PORTFOLIO_DATA = {
 
   watchlist: {
-    updated: "26 Aug 2026, 11:01 AM",
+    updated: "27 Aug 2026, 08:41 PM",
     stocks: [
       { ticker: "ADANIPORTS", name: "Adani Ports", cmp: 1691.5 },
       { ticker: "ASTRAMICRO", name: "Astra Microwave", cmp: 1698.7 },
@@ -12,13 +12,13 @@ window.PORTFOLIO_DATA = {
       { ticker: "PAYTM", name: "Paytm", cmp: 1716.0 },
       { ticker: "HBLENGINE", name: "HBL Engineering", cmp: 683.9 },
       { ticker: "KRISHNADEF", name: "Krishna Defence", cmp: 1025.9 },
-      { ticker: "ZENTEC", name: "Zen Technologies", cmp: null },
+      { ticker: "ZENTEC", name: "Zen Technologies", cmp: 1873.4 },
       { ticker: "MEDIASSIST", name: "Medi Assist", cmp: 340.05 },
       { ticker: "UNIMECH", name: "Unimech Aerospace", cmp: 1500.2 },
-      { ticker: "GOLDCASE", name: "Goldcase", cmp: 25.2 },
+      { ticker: "GOLDCASE", name: "Goldcase", cmp: 25.3 },
       { ticker: "FEDFINA", name: "Federal Bank Fin. Services", cmp: 160.15 },
       { ticker: "EMMFORCE", name: "Emmforce Autotech", cmp: null },
-      { ticker: "INTELLECT", name: "Intellect Design Arena", cmp: 684.0 },
+      { ticker: "INTELLECT", name: "Intellect Design Arena", cmp: null },
       { ticker: "RATEGAIN", name: "RateGain Travel Tech", cmp: 934.05 },
       { ticker: "NSDL", name: "NSDL", cmp: 822.15 },
       { ticker: "NH", name: "Narayana Hrudayalaya", cmp: 1882.7 },
@@ -88,7 +88,7 @@ window.PORTFOLIO_DATA = {
   },
 
   ipos: {
-    updated: "26 Aug 2026, 11:01 AM",
+    updated: "27 Aug 2026, 08:41 PM",
     listed: [
 
     ],

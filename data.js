@@ -4,7 +4,7 @@
 window.PORTFOLIO_DATA = {
 
   watchlist: {
-    updated: "1 Oct 2026, 05:05 PM",
+    updated: "2 Oct 2026, 04:19 PM",
     stocks: [
       { ticker: "ADANIPORTS", name: "Adani Ports", cmp: 1737.8 },
       { ticker: "ASTRAMICRO", name: "Astra Microwave", cmp: 1624.5 },
@@ -15,7 +15,7 @@ window.PORTFOLIO_DATA = {
       { ticker: "ZENTEC", name: "Zen Technologies", cmp: 1576.1 },
       { ticker: "MEDIASSIST", name: "Medi Assist", cmp: 298.5 },
       { ticker: "UNIMECH", name: "Unimech Aerospace", cmp: 1773.0 },
-      { ticker: "GOLDCASE", name: "Goldcase", cmp: 23.18 },
+      { ticker: "GOLDCASE", name: "Goldcase", cmp: 23.16 },
       { ticker: "FEDFINA", name: "Federal Bank Fin. Services", cmp: 149.77 },
       { ticker: "EMMFORCE", name: "Emmforce Autotech", cmp: null },
       { ticker: "INTELLECT", name: "Intellect Design Arena", cmp: 610.95 },
@@ -88,7 +88,7 @@ window.PORTFOLIO_DATA = {
   },
 
   ipos: {
-    updated: "1 Oct 2026, 05:05 PM",
+    updated: "2 Oct 2026, 04:19 PM",
     listed: [
 
     ],

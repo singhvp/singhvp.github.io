@@ -4,25 +4,25 @@
 window.PORTFOLIO_DATA = {
 
   watchlist: {
-    updated: "26 Oct 2026, 04:52 PM",
+    updated: "27 Oct 2026, 03:57 PM",
     stocks: [
-      { ticker: "ADANIPORTS", name: "Adani Ports", cmp: 1752.5 },
-      { ticker: "ASTRAMICRO", name: "Astra Microwave", cmp: 1498.3 },
-      { ticker: "GPIL", name: "Godawari Power & Ispat", cmp: 190.74 },
-      { ticker: "PAYTM", name: "Paytm", cmp: 1654.7 },
-      { ticker: "HBLENGINE", name: "HBL Engineering", cmp: 760.8 },
-      { ticker: "KRISHNADEF", name: "Krishna Defence", cmp: 1115.0 },
-      { ticker: "ZENTEC", name: "Zen Technologies", cmp: 1544.7 },
-      { ticker: "MEDIASSIST", name: "Medi Assist", cmp: 282.15 },
-      { ticker: "UNIMECH", name: "Unimech Aerospace", cmp: 1615.9 },
-      { ticker: "GOLDCASE", name: "Goldcase", cmp: 22.09 },
-      { ticker: "FEDFINA", name: "Federal Bank Fin. Services", cmp: 150.23 },
+      { ticker: "ADANIPORTS", name: "Adani Ports", cmp: 1754.5 },
+      { ticker: "ASTRAMICRO", name: "Astra Microwave", cmp: 1568.4 },
+      { ticker: "GPIL", name: "Godawari Power & Ispat", cmp: 194.25 },
+      { ticker: "PAYTM", name: "Paytm", cmp: 1601.6 },
+      { ticker: "HBLENGINE", name: "HBL Engineering", cmp: 788.0 },
+      { ticker: "KRISHNADEF", name: "Krishna Defence", cmp: 1172.5 },
+      { ticker: "ZENTEC", name: "Zen Technologies", cmp: 1562.4 },
+      { ticker: "MEDIASSIST", name: "Medi Assist", cmp: 289.5 },
+      { ticker: "UNIMECH", name: "Unimech Aerospace", cmp: 1691.5 },
+      { ticker: "GOLDCASE", name: "Goldcase", cmp: 22.0 },
+      { ticker: "FEDFINA", name: "Federal Bank Fin. Services", cmp: 150.08 },
       { ticker: "EMMFORCE", name: "Emmforce Autotech", cmp: null },
-      { ticker: "INTELLECT", name: "Intellect Design Arena", cmp: 603.7 },
-      { ticker: "RATEGAIN", name: "RateGain Travel Tech", cmp: 782.35 },
-      { ticker: "NSDL", name: "NSDL", cmp: 699.8 },
-      { ticker: "NH", name: "Narayana Hrudayalaya", cmp: 1662.3 },
-      { ticker: "BDL", name: "Bharat Dynamics", cmp: 1029.0 }
+      { ticker: "INTELLECT", name: "Intellect Design Arena", cmp: 602.6 },
+      { ticker: "RATEGAIN", name: "RateGain Travel Tech", cmp: 800.4 },
+      { ticker: "NSDL", name: "NSDL", cmp: 706.9 },
+      { ticker: "NH", name: "Narayana Hrudayalaya", cmp: 1713.2 },
+      { ticker: "BDL", name: "Bharat Dynamics", cmp: 1006.0 }
     ]
   },
 
@@ -88,7 +88,7 @@ window.PORTFOLIO_DATA = {
   },
 
   ipos: {
-    updated: "26 Oct 2026, 04:52 PM",
+    updated: "27 Oct 2026, 03:57 PM",
     listed: [
 
     ],

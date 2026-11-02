@@ -4,7 +4,7 @@
 window.PORTFOLIO_DATA = {
 
   watchlist: {
-    updated: "30 Oct 2026, 04:46 PM",
+    updated: "2 Nov 2026, 08:28 PM",
     stocks: [
       { ticker: "ADANIPORTS", name: "Adani Ports", cmp: 1850.0 },
       { ticker: "ASTRAMICRO", name: "Astra Microwave", cmp: 1514.7 },
@@ -88,7 +88,7 @@ window.PORTFOLIO_DATA = {
   },
 
   ipos: {
-    updated: "30 Oct 2026, 04:46 PM",
+    updated: "2 Nov 2026, 08:28 PM",
     listed: [
 
     ],
